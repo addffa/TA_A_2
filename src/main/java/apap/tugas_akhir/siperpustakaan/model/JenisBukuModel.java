@@ -15,8 +15,8 @@ public class JenisBukuModel implements Serializable {
 
     @NotNull
     @Size(max = 200)
-    @Column(name = "jenis_buku", nullable = false)
-    private String jenis_buku;
+    @Column(name = "nama", nullable = false)
+    private String nama;
 
     @OneToMany(mappedBy = "jenisBukuModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BukuModel> listBuku;
@@ -29,12 +29,12 @@ public class JenisBukuModel implements Serializable {
         this.id = id;
     }
 
-    public String getJenis_buku() {
-        return jenis_buku;
+    public String getNama() {
+        return nama;
     }
 
-    public void setJenis_buku(String jenis_buku) {
-        this.jenis_buku = jenis_buku;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public List<BukuModel> getListBuku() {

@@ -19,8 +19,8 @@ public class RoleModel implements Serializable {
 
     @NotNull
     @Size(max = 200)
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Column(name = "nama", nullable = false)
+    private String nama;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -35,12 +35,12 @@ public class RoleModel implements Serializable {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getNama() {
+        return nama;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setNama(String nama) {
+        this.nama = nama;
     }
 
     public List<UserModel> getUserRole() {
