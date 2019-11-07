@@ -16,35 +16,34 @@
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Judul</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{nama}">
+                    <input type="text" class="form-control" th:field="*{judul}">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Pengarang</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{nik}">
+                    <input type="text" class="form-control" th:field="*{pengarang}">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Penerbit</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{nik}">
+                    <input type="text" class="form-control" th:field="*{penerbit}">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Jumlah</label>
                 <div class="col-sm-6">
-                    <input type="date" class="form-control" th:field="*{tanggal_lahir}">
+                    <input type="text" class="form-control" th:field="*{jumlah}">
                 </div>
             </div>
             <div class="form-group row" >
                 <label class="col-sm-6 col-form-label">Jenis Buku</label>
                 <div class="col-sm-6">
-                    <select class="form-control" th:each="asuransi, rowStat : *{listAsuransi}" th:field="*{listAsuransi[__${rowStat.index}__].id}">
-                        <option value="0" selected>--Pilih Asuransi--</option>
-                        <option th:each="asuransi : ${asuransiList}" th:value="${asuransi.id}" th:text="${asuransi.nama}"></option>
+                    <select class="form-control">
+                        <option value="0" selected>--Pilih Jenis Buku--</option>
+                        <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.jenis_buku}"></option>
                     </select>
-                    <br><button type="submit" name="addAsuransi">Tambah Asuransi</button>
                 </div>
             </div>
             <br><button class="btn btn-primary" type="submit">Submit</button>
