@@ -49,8 +49,6 @@ public class BukuModel implements Serializable {
         this.jenisBukuModel = jenisBukuModel;
     }
 
-    private Integer idJenisBuku;
-
     public Integer getId() {
         return id;
     }
@@ -89,13 +87,5 @@ public class BukuModel implements Serializable {
 
     public void setJumlah(Integer jumlah) {
         this.jumlah = jumlah;
-    }
-
-    public Integer getIdJenisBuku() {
-        return idJenisBuku;
-    }
-
-    public void setIdJenisBuku(Integer idJenisBuku) {
-        this.idJenisBuku = idJenisBuku;
     }
 }

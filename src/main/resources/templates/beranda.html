@@ -11,6 +11,13 @@
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container-fluid">
         <br><h2 style="text-align: center">Sistem Informasi Perpustakaan</h2>
+        <div th:if="${msg}"
+             id="alert"
+             class="alert d-flex alert-dismissible fade show w-25"
+             th:classappend="${type}">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span th:text="${msg}" th:remove="tag"></span>
+        </div>
     </div>
 </body>
 </html>
