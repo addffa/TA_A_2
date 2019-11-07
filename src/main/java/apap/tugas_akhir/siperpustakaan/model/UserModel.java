@@ -16,14 +16,16 @@ public class UserModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    @Size(max = 200)
     private String uuid;
 
     @NotNull
-    @Size(max = 50)
+    @Size(max = 200)
     @Column(name = "username", nullable = false)
     private String username;
 
     @NotNull
+    @Size(max = 200)
     @Lob
     @Column(name = "password", nullable = false)
     private String password;

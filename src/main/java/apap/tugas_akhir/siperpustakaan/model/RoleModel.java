@@ -18,7 +18,7 @@ public class RoleModel implements Serializable {
     private Long id;
 
     @NotNull
-    @Size(max = 50)
+    @Size(max = 200)
     @Column(name = "role", nullable = false)
     private String role;
 
