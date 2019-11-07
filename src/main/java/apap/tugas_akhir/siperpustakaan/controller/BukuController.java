@@ -15,10 +15,10 @@ public class BukuController {
     @Autowired
     private BukuService bukuService;
 
-    //Menghapus buku
-    @RequestMapping("buku/hapus/{idBuku}")
-    public String hapusBuku(@PathVariable Integer idBuku){
-        bukuService.hapusBuku(idBuku);
-        return "hapus-buku";
-    }
+//    //Menghapus buku
+//    @RequestMapping("buku/hapus/{idBuku}")
+//    public String hapusBuku(@PathVariable Integer idBuku){
+//        bukuService.hapusBuku(idBuku);
+//        return "hapus-buku";
+//    }
 }

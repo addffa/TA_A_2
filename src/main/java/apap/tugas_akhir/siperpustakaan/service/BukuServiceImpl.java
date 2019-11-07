@@ -10,19 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class BukuServiceImpl implements BukuService {
 
-    @Autowired
-    BukuDb bukuDb;
-
-    @Override
-    public BukuModel getBukuById (Integer idBuku){
-        return bukuDb.findById(idBuku).get();
-    }
-
-    @Override
-    public void hapusBuku(Integer idBuku){
-        BukuModel buku = getBukuById(idBuku);
-        bukuDb.delete(buku);
-    }
+//    @Autowired
+//    BukuDb bukuDb;
+//
+//    @Override
+//    public BukuModel getBukuById (Integer idBuku){
+//        return bukuDb.findById(idBuku).get();
+//    }
+//
+//    @Override
+//    public void hapusBuku(Integer idBuku){
+//        BukuModel buku = getBukuById(idBuku);
+//        bukuDb.delete(buku);
+//    }
 
 
 }
