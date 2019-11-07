@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Tambah Buku</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<h2 style="margin-left: 215px; margin-top: 40px">Tambah Buku</h2>
+<div class="row" style="margin-left: 200px; margin-top: 30px">
+    <div class="col-md-6">
+        <form th:action="@{/buku/tambahBuku}" th:object="${buku}" method="POST">
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Judul</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" th:field="*{nama}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Pengarang</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" th:field="*{nik}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Penerbit</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" th:field="*{nik}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Jumlah</label>
+                <div class="col-sm-6">
+                    <input type="date" class="form-control" th:field="*{tanggal_lahir}">
+                </div>
+            </div>
+            <div class="form-group row" >
+                <label class="col-sm-6 col-form-label">Jenis Buku</label>
+                <div class="col-sm-6">
+                    <select class="form-control" th:each="asuransi, rowStat : *{listAsuransi}" th:field="*{listAsuransi[__${rowStat.index}__].id}">
+                        <option value="0" selected>--Pilih Asuransi--</option>
+                        <option th:each="asuransi : ${asuransiList}" th:value="${asuransi.id}" th:text="${asuransi.nama}"></option>
+                    </select>
+                    <br><button type="submit" name="addAsuransi">Tambah Asuransi</button>
+                </div>
+            </div>
+            <br><button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
