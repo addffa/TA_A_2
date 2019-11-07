@@ -63,8 +63,12 @@ public class BukuController {
     }
 
     //Menghapus buku
-    @RequestMapping("buku/hapus/{idBuku}")
-    public String hapusBuku(@PathVariable Integer idBuku){
+    @RequestMapping(value = "buku/hapus/{idBuku}", method = RequestMethod.POST)
+    public String hapusBuku(
+            @PathVariable Integer idBuku,
+            @ModelAttribute BukuModel buku,
+            Model model
+    ){
         bukuService.hapusBuku(idBuku);
         return "hapus-buku";
     }
