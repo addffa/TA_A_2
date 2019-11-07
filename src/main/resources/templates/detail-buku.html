@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${buku.judul}">Detail Buku</title>
+<!--    <object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
+<!--    <object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+</head>
+<body>
+<!--<nav th:replace="fragments/fragment :: navbar"></nav>-->
+<!--<br/>-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-dark text-light">Detail Data Pasien</div>
+                <div class="card-body">
+                    <a th:href="@{/buku}">Kembali ke Daftar Buku</a>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>Judul</td>
+                            <td th:text="${buku.judul}"></td>
+                        </tr>
+                        <tr>
+                            <td>Pengarang</td>
+                            <td th:text="${buku.pengarang}"></td>
+                        </tr>
+                        <tr>
+                            <td>Penerbit</td>
+                            <td th:text="${buku.penerbit}"></td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah</td>
+                            <td th:text="${buku.jumlah}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+</body>
+</html>
