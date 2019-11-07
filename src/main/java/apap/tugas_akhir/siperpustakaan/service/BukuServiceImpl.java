@@ -7,22 +7,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class BukuServiceImpl implements BukuService {
     @Autowired
-    private BukuDb bukuDb;
+    BukuDb bukuDb;
 
     @Override
-    public BukuModel findBukuById(Integer id) {
-        Optional<BukuModel> buku = bukuDb.findById(id);
-        if(buku.isPresent()) {
-            return buku.get();
-        }
-        throw new NoSuchElementException();
+    public void tambahBuku(BukuModel bukuModel) {
+        bukuDb.save(bukuModel);
+    }
+
+    @Override
+    public Optional<BukuModel> getBukuById(Integer idBuku) {
+        return bukuDb.findById(idBuku);
+    }
+
+    @Override
+    public BukuModel ubahJumlahBuku(BukuModel bukuModel) {
+        BukuModel targetBuku = bukuDb.findById(bukuModel.getId()).get();
+        targetBuku.setJumlah(bukuModel.getJumlah());
+        bukuDb.save(targetBuku);
+        return targetBuku;
     }
 
     @Override

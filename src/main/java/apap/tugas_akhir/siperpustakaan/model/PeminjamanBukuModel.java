@@ -1,10 +1,12 @@
 package apap.tugas_akhir.siperpustakaan.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -30,9 +32,17 @@ public class PeminjamanBukuModel implements Serializable {
     @Column(name = "jumlah", nullable = false)
     private Integer status;
 
-    private Integer idBuku;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "idBuku", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private BukuModel buku;
 
-    private String uuidUser;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "uuidUser", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private UserModel user;
 
     public Integer getId() {
         return id;
@@ -66,19 +76,19 @@ public class PeminjamanBukuModel implements Serializable {
         this.status = status;
     }
 
-    public Integer getIdBuku() {
-        return idBuku;
+    public BukuModel getBuku() {
+        return buku;
     }
 
-    public void setIdBuku(Integer idBuku) {
-        this.idBuku = idBuku;
+    public void setBuku(BukuModel buku) {
+        this.buku = buku;
     }
 
-    public String getUuidUser() {
-        return uuidUser;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setUuidUser(String uuidUser) {
-        this.uuidUser = uuidUser;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }
