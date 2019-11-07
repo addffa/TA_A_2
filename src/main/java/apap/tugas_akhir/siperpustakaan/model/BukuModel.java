@@ -1,5 +1,9 @@
 package apap.tugas_akhir.siperpustakaan.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -31,7 +35,19 @@ public class BukuModel implements Serializable {
     @Column(name = "jumlah", nullable = false)
     private Integer jumlah;
 
-    private Integer idJenisBuku;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "jenisBukuId", referencedColumnName = "id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private JenisBukuModel jenisBukuModel;
+
+    public JenisBukuModel getJenisBukuModel() {
+        return jenisBukuModel;
+    }
+
+    public void setJenisBukuModel(JenisBukuModel jenisBukuModel) {
+        this.jenisBukuModel = jenisBukuModel;
+    }
 
     public Integer getId() {
         return id;
@@ -71,13 +87,5 @@ public class BukuModel implements Serializable {
 
     public void setJumlah(Integer jumlah) {
         this.jumlah = jumlah;
-    }
-
-    public Integer getIdJenisBuku() {
-        return idJenisBuku;
-    }
-
-    public void setIdJenisBuku(Integer idJenisBuku) {
-        this.idJenisBuku = idJenisBuku;
     }
 }

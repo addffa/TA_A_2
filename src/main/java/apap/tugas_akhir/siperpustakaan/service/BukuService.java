@@ -2,12 +2,15 @@ package apap.tugas_akhir.siperpustakaan.service;
 
 import apap.tugas_akhir.siperpustakaan.model.BukuModel;
 
-public interface BukuService {
+import java.util.Optional;
 
-//    //Method untuk mengambil buku berdasarkan Id buku
-//    BukuModel getBukuById (Integer idBuku);
-//
-//    //method untuk menghapus buku berdasarkan Id buku
-//    void hapusBuku(Integer idBuku);
+public interface BukuService {
+    void tambahBuku(BukuModel bukuModel);
+
+    Optional<BukuModel> getBukuById(Integer idBuku);
+
+    BukuModel ubahJumlahBuku(BukuModel bukuModel);
+
+    void hapusBuku(Integer idBuku);
 
 }
