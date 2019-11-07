@@ -6,27 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.NoSuchElementException;
-import java.util.Optional;
-
 @Service
 @Transactional
-public class BukuServiceImpl implements BukuService {
+public class BukuServieImpl implements BukuService {
 
     @Autowired
     BukuDb bukuDb;
 
     @Override
     public BukuModel getBukuById (Integer idBuku){
-        Optional<BukuModel> buku = bukuDb.findById(idBuku);
-        if(buku.isPresent()){
-            return buku.get();
-        }
-        throw new NoSuchElementException();
+        return bukuDb.findById(idBuku).get();
     }
 
     @Override
-    public void hapusBuku (Integer idBuku){
-        bukuDb.deleteById(idBuku);
+    public void hapusBuku(Integer idBuku){
+        BukuModel buku = getBukuById(idBuku);
+        bukuDb.delete(buku);
     }
+
+
 }
