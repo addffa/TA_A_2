@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class BukuServieImpl implements BukuService {
+public class BukuServiceImpl implements BukuService {
 
     @Autowired
     BukuDb bukuDb;
