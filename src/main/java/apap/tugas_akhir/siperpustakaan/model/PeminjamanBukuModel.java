@@ -24,12 +24,12 @@ public class PeminjamanBukuModel implements Serializable {
     private Date tangganPeminjaman;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "tanggal_lahir")
+    @Column(name = "tanggal_pengembalian", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tanggalPengembalian;
 
     @NotNull
-    @Column(name = "jumlah", nullable = false)
+    @Column(name = "status", nullable = false)
     private Integer status;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
