@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface BukuDb extends JpaRepository<BukuModel, Integer> {
     Optional<BukuModel> findById(Integer idBuku);
+
+    boolean existsBukuModelsByJudulAndPengarang(String judul, String pengarang);
 }
