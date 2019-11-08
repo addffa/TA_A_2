@@ -17,7 +17,7 @@
 </div>
 <div class="row" style="margin-left: 200px; margin-top: 30px">
     <div class="col-md-6">
-        <form th:action="@{/buku/ubahJumlahBuku/} + ${buku.id}" th:object="${buku}" method="POST">
+        <form th:action="@{'/buku/' + ${buku.id} + '/update-jumlah'}" th:object="${buku}" method="POST">
             <input type="hidden" th:field="*{id}"/>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Judul</label>
@@ -40,7 +40,7 @@
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Jumlah</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{jumlah}">
+                    <input type="number" class="form-control" th:field="*{jumlah}" required>
                 </div>
             </div>
             <br><button class="btn btn-primary" type="submit">Submit</button>

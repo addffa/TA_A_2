@@ -27,14 +27,14 @@ public class BukuController {
         return "beranda";
     }
 
-    @RequestMapping(value = "/buku/daftarBuku", method = RequestMethod.GET)
+    @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
         List<BukuModel> bukuList = bukuService.getListBuku();
         model.addAttribute("bukuList", bukuList);
         return "daftar-buku";
     }
 
-    @RequestMapping(value = "/buku/tambahBuku", method = RequestMethod.GET)
+    @RequestMapping(value = "/buku/tambah", method = RequestMethod.GET)
     public String tambahBukuForm(Model model) {
         BukuModel newBuku = new BukuModel();
         JenisBukuModel jenisBuku = new JenisBukuModel();
@@ -47,23 +47,24 @@ public class BukuController {
         return "form-tambah-buku";
     }
   
-    @RequestMapping(value = "/buku/tambahBuku", method = RequestMethod.POST)
+    @RequestMapping(value = "/buku/tambah", method = RequestMethod.POST)
     public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
-        if (!(bukuService.cekJudulDanPengarangBuku(buku))) {
+        model.addAttribute("jenisBukuList", jenisBukuService.getJenisBukuList());
+        if (!bukuService.cekJudulDanPengarangBuku(buku)) {
             bukuService.tambahBuku(buku);
             String successMessage = "Buku dengan judul " + buku.getJudul() + " berhasil ditambahkan";
             model.addAttribute("message", successMessage);
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         } else {
-            String failMessage = "Buku dengan judul " + buku.getJudul() + " sudah ada";
+            String failMessage = "Buku dengan judul " + buku.getJudul() + " dan pengarang " + buku.getPengarang() + " sudah ada";
             model.addAttribute("message", failMessage);
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         }
     }
   
-    @RequestMapping(value = "/buku/ubahJumlahBuku/{idBuku}", method = RequestMethod.GET)
+    @RequestMapping(value = "/buku/{idBuku}/update-jumlah", method = RequestMethod.GET)
     private String ubahJumlahBukuForm(
             @PathVariable Integer idBuku, RedirectAttributes redir, Model model
     ) {
@@ -79,7 +80,7 @@ public class BukuController {
         }
     }
 
-    @RequestMapping(value = "/buku/ubahJumlahBuku/{idBuku}", method = RequestMethod.POST)
+    @RequestMapping(value = "/buku/{idBuku}/update-jumlah", method = RequestMethod.POST)
     private String ubahJumlahBukuSubmit(
             @PathVariable Integer idBuku,
             @ModelAttribute BukuModel buku, RedirectAttributes redir, Model model
@@ -91,7 +92,7 @@ public class BukuController {
         return "redirect:/" ;
     }
 
-    @RequestMapping(value = "/buku/hapusBuku/{idBuku}", method = RequestMethod.POST)
+    @RequestMapping(value = "/buku/{idBuku}/hapus", method = RequestMethod.POST)
     public String hapusBuku(@PathVariable Integer idBuku){
         bukuService.hapusBuku(idBuku);
         return "hapus-buku";

@@ -19,7 +19,7 @@
 </div>
 <div class="row" style="margin-left: 200px; margin-top: 40px">
     <div class="col-md-6">
-        <form th:action="@{/buku/tambahBuku}" th:object="${buku}" method="POST">
+        <form th:action="@{/buku/tambah}" th:object="${buku}" method="POST">
             <input type="hidden" th:field="*{id}">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Judul</label>
