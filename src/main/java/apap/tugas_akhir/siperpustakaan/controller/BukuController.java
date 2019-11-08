@@ -29,7 +29,7 @@ public class BukuController {
 
     @RequestMapping(value = "/buku/daftarBuku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
-        List<BukuModel> bukuList = bukuService.getBukuList();
+        List<BukuModel> bukuList = bukuService.getListBuku();
         model.addAttribute("bukuList", bukuList);
         return "daftar-buku";
     }
@@ -49,7 +49,7 @@ public class BukuController {
   
     @RequestMapping(value = "/buku/tambahBuku", method = RequestMethod.POST)
     public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
-        List<BukuModel> bukuList = bukuService.getBukuList();
+        List<BukuModel> bukuList = bukuService.getListBuku();
         boolean isExist = false;
         for (BukuModel bukuModel : bukuList) {
             if (bukuModel.getJudul().equals(buku.getJudul()) && bukuModel.getPengarang().equals(buku.getPengarang())) {
@@ -99,7 +99,7 @@ public class BukuController {
         return "redirect:/" ;
     }
 
-    @RequestMapping(value = "/buku/hapusBuku/{idBuku}")
+    @RequestMapping(value = "/buku/hapusBuku/{idBuku}", method = RequestMethod.POST)
     public String hapusBuku(@PathVariable Integer idBuku){
         bukuService.hapusBuku(idBuku);
         return "hapus-buku";

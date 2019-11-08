@@ -25,11 +25,6 @@ public class BukuServiceImpl implements BukuService {
     public void tambahBuku(BukuModel bukuModel) {
         bukuDb.save(bukuModel);
     }
-
-    @Override
-    public List<BukuModel> getBukuList() {
-        return bukuDb.findAll();
-    }
   
     public Optional<BukuModel> getBukuById(Integer idBuku) {
         return bukuDb.findById(idBuku);

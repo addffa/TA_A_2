@@ -48,7 +48,7 @@
             <div class="form-group row" >
                 <label class="col-sm-6 col-form-label">Jenis Buku</label>
                 <div class="col-sm-6">
-                    <select class="form-control" th:field="*{jenisBukuModel.id}">
+                    <select class="form-control" th:field="*{jenisBuku.id}">
                         <option value="0" selected>--Pilih Jenis Buku--</option>
                         <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.nama}"></option>
                     </select>

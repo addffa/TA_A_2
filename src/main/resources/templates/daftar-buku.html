@@ -27,6 +27,7 @@
                                     <th>Penerbit</th>
                                     <th>Jumlah</th>
                                     <th>Jenis Buku</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,7 +37,13 @@
                                     <td th:text="${buku.pengarang}"></td>
                                     <td th:text="${buku.penerbit}"></td>
                                     <td th:text="${buku.jumlah}"></td>
-                                    <td th:text="${buku.jenisBukuModel.jenis_buku}"></td>
+                                    <td th:text="${buku.jenisBuku.nama}"></td>
+                                    <td>
+                                        <form th:action="@{'/buku/hapusBuku/' + ${buku.id}}" method="post">
+                                            <a th:href="@{'/buku/ubahJumlahBuku/' + ${buku.id}}" class="btn btn-primary">Ubah Jumlah</a>
+                                            <button type="submit" class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
