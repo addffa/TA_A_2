@@ -8,5 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface BukuDb extends JpaRepository<BukuModel, Integer> {
+
+    //Query untuk mencari buku berdasarkan Id buku
     Optional<BukuModel> findById(Integer idBuku);
 }

@@ -13,6 +13,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class BukuServiceImpl implements BukuService {
+
+
     @Autowired
     BukuDb bukuDb;
 
@@ -42,6 +44,11 @@ public class BukuServiceImpl implements BukuService {
     }
 
     @Override
+    public void hapusBuku(Integer idBuku){
+        BukuModel buku = getBukuById(idBuku).get();
+        bukuDb.delete(buku);
+    }
+
     public List<BukuModel> getListBuku() {
         return bukuDb.findAll();
     }

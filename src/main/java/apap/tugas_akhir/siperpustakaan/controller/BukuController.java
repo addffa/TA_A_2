@@ -99,6 +99,12 @@ public class BukuController {
         return "redirect:/" ;
     }
 
+    @RequestMapping(value = "/buku/hapusBuku/{idBuku}")
+    public String hapusBuku(@PathVariable Integer idBuku){
+        bukuService.hapusBuku(idBuku);
+        return "hapus-buku";
+    }
+
     @RequestMapping(value = "/buku/{idBuku}", method = RequestMethod.GET)
     private String detailBuku(@PathVariable Integer idBuku, Model model) {
         BukuModel buku = bukuService.getBukuById(idBuku).get();
