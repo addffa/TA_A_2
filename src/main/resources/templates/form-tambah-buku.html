@@ -24,32 +24,32 @@
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Judul</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{judul}">
+                    <input type="text" class="form-control" th:field="*{judul}" required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Pengarang</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{pengarang}">
+                    <input type="text" class="form-control" th:field="*{pengarang}" required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Penerbit</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{penerbit}">
+                    <input type="text" class="form-control" th:field="*{penerbit}" required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Jumlah</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{jumlah}">
+                    <input type="number" class="form-control" th:field="*{jumlah}" required="true">
                 </div>
             </div>
             <div class="form-group row" >
                 <label class="col-sm-6 col-form-label">Jenis Buku</label>
                 <div class="col-sm-6">
-                    <select class="form-control" th:field="*{jenisBuku.id}">
-                        <option value="0" selected>--Pilih Jenis Buku--</option>
+                    <select class="form-control" th:field="*{jenisBuku.id}" required="true">
+                        <option value="" selected>--Pilih Jenis Buku--</option>
                         <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.nama}"></option>
                     </select>
                 </div>

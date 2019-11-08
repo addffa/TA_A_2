@@ -49,15 +49,7 @@ public class BukuController {
   
     @RequestMapping(value = "/buku/tambahBuku", method = RequestMethod.POST)
     public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
-        List<BukuModel> bukuList = bukuService.getListBuku();
-        boolean isExist = false;
-        for (BukuModel bukuModel : bukuList) {
-            if (bukuModel.getJudul().equals(buku.getJudul()) && bukuModel.getPengarang().equals(buku.getPengarang())) {
-                isExist = true;
-                break;
-            }
-        }
-        if (!isExist) {
+        if (!(bukuService.cekJudulDanPengarangBuku(buku))) {
             bukuService.tambahBuku(buku);
             String successMessage = "Buku dengan judul " + buku.getJudul() + " berhasil ditambahkan";
             model.addAttribute("message", successMessage);
