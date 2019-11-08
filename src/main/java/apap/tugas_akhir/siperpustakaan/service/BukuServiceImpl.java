@@ -54,15 +54,7 @@ public class BukuServiceImpl implements BukuService {
     }
 
     @Override
-    public boolean cekBuku(BukuModel buku) {
-        List<BukuModel> bukuList = getListBuku();
-        boolean isExist = false;
-        for (BukuModel bukuModel : bukuList) {
-            if (bukuModel.getJudul().equals(buku.getJudul()) && bukuModel.getPengarang().equals(buku.getPengarang())) {
-                isExist = true;
-                break;
-            }
-        }
-        return isExist;
+    public boolean cekJudulDanPengarangBuku(BukuModel buku) {
+        return bukuDb.existsBukuModelsByJudulAndPengarang(buku.getJudul(), buku.getPengarang());
     }
 }

@@ -49,7 +49,7 @@ public class BukuController {
   
     @RequestMapping(value = "/buku/tambahBuku", method = RequestMethod.POST)
     public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
-        if (!(bukuService.cekBuku(buku))) {
+        if (!(bukuService.cekJudulDanPengarangBuku(buku))) {
             bukuService.tambahBuku(buku);
             String successMessage = "Buku dengan judul " + buku.getJudul() + " berhasil ditambahkan";
             model.addAttribute("message", successMessage);

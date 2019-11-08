@@ -18,5 +18,5 @@ public interface BukuService {
 
     int jumlahBukuDipinjam(BukuModel buku);
 
-    boolean cekBuku(BukuModel buku);
+    boolean cekJudulDanPengarangBuku(BukuModel buku);
 }
