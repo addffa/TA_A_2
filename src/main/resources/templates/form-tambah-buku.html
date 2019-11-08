@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Tambah Buku</title>
@@ -42,7 +42,7 @@
                 <div class="col-sm-6">
                     <select class="form-control">
                         <option value="0" selected>--Pilih Jenis Buku--</option>
-                        <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.jenis_buku}"></option>
+                        <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.nama}"></option>
                     </select>
                 </div>
             </div>

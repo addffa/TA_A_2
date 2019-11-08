@@ -61,4 +61,18 @@ public class BukuController {
         redir.addFlashAttribute("type", "alert-info");
         return "redirect:/" ;
     }
+
+    @RequestMapping(value = "/buku/{idBuku}", method = RequestMethod.GET)
+    private String detailBuku(@PathVariable Integer idBuku, Model model) {
+        BukuModel buku = bukuService.getBukuById(idBuku).get();
+        model.addAttribute("buku", buku);
+        model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
+        return "detail-buku";
+    }
+
+    @RequestMapping(value = "/buku")
+    private String daftarBuku(Model model) {
+        model.addAttribute("listBuku", bukuService.getListBuku());
+        return "daftar-buku";
+    }
 }

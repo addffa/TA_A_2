@@ -18,7 +18,7 @@ public class JenisBukuModel implements Serializable {
     @Column(name = "nama", nullable = false)
     private String nama;
 
-    @OneToMany(mappedBy = "jenisBukuModel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jenisBuku", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<BukuModel> listBuku;
 
     public Integer getId() {

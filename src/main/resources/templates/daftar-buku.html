@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Daftar Buku</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br/><br/>
+    <div class="card">
+        <div class="card-header bg-dark text-light">Daftar Pasien</div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Judul</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="buku, iterStat: ${listBuku}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td>
+                        <a th:href="@{'/buku/' + ${buku.id}}" th:text="${buku.judul}"></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

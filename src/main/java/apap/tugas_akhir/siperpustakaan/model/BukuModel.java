@@ -39,14 +39,14 @@ public class BukuModel implements Serializable {
     @JoinColumn(name = "idJenisBuku", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private JenisBukuModel jenisBukuModel;
+    private JenisBukuModel jenisBuku;
 
-    public JenisBukuModel getJenisBukuModel() {
-        return jenisBukuModel;
+    public JenisBukuModel getJenisBuku() {
+        return jenisBuku;
     }
 
-    public void setJenisBukuModel(JenisBukuModel jenisBukuModel) {
-        this.jenisBukuModel = jenisBukuModel;
+    public void setJenisBuku(JenisBukuModel jenisBuku) {
+        this.jenisBuku = jenisBuku;
     }
 
     public Integer getId() {
