@@ -64,7 +64,9 @@ public class BukuController {
 
     @RequestMapping(value = "/buku/{idBuku}", method = RequestMethod.GET)
     private String detailBuku(@PathVariable Integer idBuku, Model model) {
-        model.addAttribute("buku", bukuService.getBukuById(idBuku));
+        BukuModel buku = bukuService.getBukuById(idBuku).get();
+        model.addAttribute("buku", buku);
+        model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
         return "detail-buku";
     }
 

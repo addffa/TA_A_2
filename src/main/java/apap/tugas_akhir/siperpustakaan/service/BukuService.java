@@ -13,4 +13,6 @@ public interface BukuService {
     BukuModel ubahJumlahBuku(BukuModel bukuModel);
 
     List<BukuModel> getListBuku();
+
+    int jumlahBukuDipinjam(BukuModel buku);
 }

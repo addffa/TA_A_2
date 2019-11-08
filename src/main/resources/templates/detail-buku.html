@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title th:text="${buku.judul}">Detail Buku</title>
-<!--    <object th:include="fragments/fragment :: css" th:remove="tag"></object>-->
-<!--    <object th:include="fragments/fragment :: js" th:remove="tag"></object>-->
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<!--<nav th:replace="fragments/fragment :: navbar"></nav>-->
-<!--<br/>-->
+<nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col-1"></div>
@@ -34,6 +33,18 @@
                         <tr>
                             <td>Jumlah</td>
                             <td th:text="${buku.jumlah}"></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Buku</td>
+                            <td th:text="${buku.jenisBuku.nama}"></td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah Buku Dipinjam</td>
+                            <td th:text="${jumlahDipinjam}"></td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah Buku yang Tersedia</td>
+                            <td th:text="${buku.jumlah - jumlahDipinjam}"></td>
                         </tr>
                         </tbody>
                     </table>
