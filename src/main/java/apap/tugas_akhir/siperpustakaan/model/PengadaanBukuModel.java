@@ -1,5 +1,9 @@
 package apap.tugas_akhir.siperpustakaan.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -39,7 +43,11 @@ public class PengadaanBukuModel implements Serializable {
     @Column(name = "status", nullable = false)
     private Integer status;
 
-    private String uuidUser;
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "uuidUser", referencedColumnName = "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private UserModel user;
 
     public Integer getId() {
         return id;
@@ -97,11 +105,11 @@ public class PengadaanBukuModel implements Serializable {
         this.status = status;
     }
 
-    public String getUuidUser() {
-        return uuidUser;
+    public UserModel getUser() {
+        return user;
     }
 
-    public void setUuidUser(String uuidUser) {
-        this.uuidUser = uuidUser;
+    public void setUser(UserModel user) {
+        this.user = user;
     }
 }

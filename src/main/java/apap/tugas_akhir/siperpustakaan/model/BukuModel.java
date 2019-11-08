@@ -36,17 +36,17 @@ public class BukuModel implements Serializable {
     private Integer jumlah;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "jenis_buku_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "idJenisBuku", referencedColumnName = "id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private JenisBukuModel jenisBukuModel;
+    private JenisBukuModel jenisBuku;
 
-    public JenisBukuModel getJenisBukuModel() {
-        return jenisBukuModel;
+    public JenisBukuModel getJenisBuku() {
+        return jenisBuku;
     }
 
-    public void setJenisBukuModel(JenisBukuModel jenisBukuModel) {
-        this.jenisBukuModel = jenisBukuModel;
+    public void setJenisBuku(JenisBukuModel jenisBuku) {
+        this.jenisBuku = jenisBuku;
     }
 
     public Integer getId() {
