@@ -52,4 +52,17 @@ public class BukuServiceImpl implements BukuService {
     public int jumlahBukuDipinjam(BukuModel buku) {
         return peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatusNot(buku, 4);
     }
+
+    @Override
+    public boolean cekBuku(BukuModel buku) {
+        List<BukuModel> bukuList = getListBuku();
+        boolean isExist = false;
+        for (BukuModel bukuModel : bukuList) {
+            if (bukuModel.getJudul().equals(buku.getJudul()) && bukuModel.getPengarang().equals(buku.getPengarang())) {
+                isExist = true;
+                break;
+            }
+        }
+        return isExist;
+    }
 }
