@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class BukuServiceImpl implements BukuService {
@@ -15,5 +17,10 @@ public class BukuServiceImpl implements BukuService {
     @Override
     public void tambahBuku(BukuModel bukuModel) {
         bukuDb.save(bukuModel);
+    }
+
+    @Override
+    public List<BukuModel> getBukuList() {
+        return bukuDb.findAll();
     }
 }

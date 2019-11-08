@@ -20,14 +20,24 @@
                     <div class="card-body">
                         <table th:class="table">
                             <thead>
-                            <tr>
-                                <th>Judul</th>
-                                <th>Pengarang</th>
-                                <th>Penerbit</th>
-                                <th>Jumlah</th>
-                            </tr>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Judul</th>
+                                    <th>Pengarang</th>
+                                    <th>Penerbit</th>
+                                    <th>Jumlah</th>
+                                    <th>Jenis Buku</th>
+                                </tr>
                             </thead>
                             <tbody>
+                                <tr th:each="buku, iterationStatus : ${bukuList}">
+                                    <td th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${buku.judul}"></td>
+                                    <td th:text="${buku.pengarang}"></td>
+                                    <td th:text="${buku.penerbit}"></td>
+                                    <td th:text="${buku.jumlah}"></td>
+                                    <td th:text="${buku.jenisBukuModel.jenis_buku}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
