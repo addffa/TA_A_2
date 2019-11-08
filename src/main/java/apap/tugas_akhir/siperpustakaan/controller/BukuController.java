@@ -62,7 +62,7 @@ public class BukuController {
         return "redirect:/" ;
     }
 
-    @RequestMapping(value = "/buku/hapusBuku/{idBuku}", method = RequestMethod.POST)
+    @RequestMapping(value = "/buku/hapusBuku/{idBuku}")
     public String hapusBuku(@PathVariable Integer idBuku){
         bukuService.hapusBuku(idBuku);
         return "hapus-buku";
