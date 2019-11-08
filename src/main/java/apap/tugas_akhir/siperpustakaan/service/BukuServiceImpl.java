@@ -13,6 +13,8 @@ import java.util.Optional;
 @Service
 @Transactional
 public class BukuServiceImpl implements BukuService {
+
+
     @Autowired
     BukuDb bukuDb;
 
@@ -23,8 +25,7 @@ public class BukuServiceImpl implements BukuService {
     public void tambahBuku(BukuModel bukuModel) {
         bukuDb.save(bukuModel);
     }
-
-    @Override
+  
     public Optional<BukuModel> getBukuById(Integer idBuku) {
         return bukuDb.findById(idBuku);
     }
@@ -38,6 +39,11 @@ public class BukuServiceImpl implements BukuService {
     }
 
     @Override
+    public void hapusBuku(Integer idBuku){
+        BukuModel buku = getBukuById(idBuku).get();
+        bukuDb.delete(buku);
+    }
+
     public List<BukuModel> getListBuku() {
         return bukuDb.findAll();
     }
@@ -45,5 +51,10 @@ public class BukuServiceImpl implements BukuService {
     @Override
     public int jumlahBukuDipinjam(BukuModel buku) {
         return peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatusNot(buku, 4);
+    }
+
+    @Override
+    public boolean cekJudulDanPengarangBuku(BukuModel buku) {
+        return bukuDb.existsBukuModelsByJudulAndPengarang(buku.getJudul(), buku.getPengarang());
     }
 }

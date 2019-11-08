@@ -12,7 +12,11 @@ public interface BukuService {
 
     BukuModel ubahJumlahBuku(BukuModel bukuModel);
 
+    void hapusBuku(Integer idBuku);
+
     List<BukuModel> getListBuku();
 
     int jumlahBukuDipinjam(BukuModel buku);
+
+    boolean cekJudulDanPengarangBuku(BukuModel buku);
 }

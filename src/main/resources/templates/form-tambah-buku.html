@@ -10,38 +10,46 @@
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <h2 style="margin-left: 215px; margin-top: 40px">Tambah Buku</h2>
-<div class="row" style="margin-left: 200px; margin-top: 30px">
+<div th:if="${message}"
+     id="alert"
+     class="alert d-flex alert-dismissible fade show w-50"
+     th:classappend="${type}" style="margin-left: 210px; margin-top:30px; background-color: #fffcc1">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <span th:text="${message}" th:remove="tag"></span>
+</div>
+<div class="row" style="margin-left: 200px; margin-top: 40px">
     <div class="col-md-6">
         <form th:action="@{/buku/tambahBuku}" th:object="${buku}" method="POST">
+            <input type="hidden" th:field="*{id}">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Judul</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{judul}">
+                    <input type="text" class="form-control" th:field="*{judul}" required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Pengarang</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{pengarang}">
+                    <input type="text" class="form-control" th:field="*{pengarang}" required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Penerbit</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{penerbit}">
+                    <input type="text" class="form-control" th:field="*{penerbit}" required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Jumlah</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" th:field="*{jumlah}">
+                    <input type="number" class="form-control" th:field="*{jumlah}" required="true">
                 </div>
             </div>
             <div class="form-group row" >
                 <label class="col-sm-6 col-form-label">Jenis Buku</label>
                 <div class="col-sm-6">
-                    <select class="form-control">
-                        <option value="0" selected>--Pilih Jenis Buku--</option>
+                    <select class="form-control" th:field="*{jenisBuku.id}" required="true">
+                        <option value="" selected>--Pilih Jenis Buku--</option>
                         <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.nama}"></option>
                     </select>
                 </div>
