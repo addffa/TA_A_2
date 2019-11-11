@@ -9,9 +9,11 @@
 
 <body>
 <div class="container-fluid">
-    <h2>Hello !</h2>
+    <br/><br/>
     <div class="row">
+        <div class="col-md-4"></div>
         <div class="col-md-4">
+            <h2>Hello !</h2>
             <div class="card">
                 <div class="card-header">
                     Log In
@@ -21,17 +23,12 @@
                         <span style="color: red">Invalid username or password</span>
                     </div>
                     <form th:action="@{/login}" method="POST">
-                        <div class="row form-group">
-                            <label class="col-sm-4">Username:</label>
-                            <input type="text" class="col-sm-8 form-control input-sm" name="username">
-                        </div>
-                        <div class="row form-group">
-                            <label class="col-sm-4">Password:</label>
-                            <input type="password" class="col-sm-8 form-control input-sm" name="password">
-                        </div>
-                        <div class="row form-group">
-                            <button type="submit" class="btn btn-primary">Sign In</button>
-                        </div>
+                        <label>Username:</label>
+                        <input type="text" class="form-control" name="username">
+                        <label>Password:</label>
+                        <input type="password" class="form-control" name="password">
+                        <br/>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
                     </form>
                 </div>
             </div>
