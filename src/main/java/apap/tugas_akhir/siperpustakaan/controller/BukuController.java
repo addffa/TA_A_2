@@ -22,11 +22,6 @@ public class BukuController {
     @Autowired
     JenisBukuService jenisBukuService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    private String beranda(Model model) {
-        return "beranda";
-    }
-
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
         List<BukuModel> bukuList = bukuService.getListBuku();
