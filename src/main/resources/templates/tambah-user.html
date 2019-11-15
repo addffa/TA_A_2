@@ -10,7 +10,7 @@
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
-    <br><h2 style="text-align: center">Tambah User</h2>
+    <br><h2 style="text-align: center">Tambah Pustakawan</h2>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -22,20 +22,27 @@
                 <span th:text="${msg}" th:remove="tag"></span>
             </div>
             <div class="card">
-                <div class="card-header">Tambah User Baru</div>
+                <div class="card-header">Tambah User Pustakawan Baru</div>
                 <div class="card-body">
                     <form th:action="@{/user/tambah}" method="post">
                         <label>User Name</label>
                         <input type="text" name="username" class="form-control" required/>
-
                         <label>Password</label>
                         <input type="password" name="password" class="form-control" required />
-
-                        <label>Role</label>
-                        <select name="role" class="form-control" required>
-                            <option selected value="">-- Pilih Role --</option>
-                            <option th:each="role : ${listRole}" th:value="${role.id}" th:text="${role.nama}"></option>
+                        <select name="role" class="form-control" hidden required>
+                            <option th:each="role : ${listRole}" th:if="${role.nama.equals('Pustakawan')}"
+                                    th:value="${role.id}" th:text="${role.nama}" selected></option>
                         </select>
+                        <label>Nama</label>
+                        <input type="text" name="nama" class="form-control" required />
+                        <label>Tempat Lahir</label>
+                        <input type="text" name="tempatLahir" class="form-control" required />
+                        <label>Tanggal Lahir</label>
+                        <input type="date" name="tanggalLahir" class="form-control" required />
+                        <label>Alamat</label>
+                        <input type="text" name="alamat" class="form-control" required />
+                        <label>Telepon</label>
+                        <input type="text" name="telepon" class="form-control" required />
                         <br/>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
