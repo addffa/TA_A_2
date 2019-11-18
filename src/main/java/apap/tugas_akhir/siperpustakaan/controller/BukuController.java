@@ -120,10 +120,14 @@ public class BukuController {
         if(jumlahTotalBuku - jumlahBukuDipinjam > 0) {
             UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
             bukuService.addPeminjamanBuku(buku, user);
+            String message = "Peminjaman buku dengan judul " + buku.getJudul() + " berhasil di ajukan";
+            redir.addFlashAttribute("msg", message);
+            redir.addFlashAttribute("type", "alert-info");
+        } else {
+            String message = "Pengajuan peminjaman buku dengan judul " + buku.getJudul() + " gagal karena buku tidak tersedia!";
+            redir.addFlashAttribute("msg", message);
+            redir.addFlashAttribute("type", "alert-danger");
         }
-        String message = "Peminjaman buku dengan judul " + buku.getJudul() + " berhasil di ajukan";
-        redir.addFlashAttribute("msg", message);
-        redir.addFlashAttribute("type", "alert-info");
         return "redirect:/buku/" + idBuku;
     }
 }

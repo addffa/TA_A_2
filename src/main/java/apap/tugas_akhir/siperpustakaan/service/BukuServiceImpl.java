@@ -76,6 +76,4 @@ public class BukuServiceImpl implements BukuService {
         peminjaman.setUser(user);
         peminjamanBukuDb.save(peminjaman);
     }
-
-
 }
