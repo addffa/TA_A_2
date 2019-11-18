@@ -33,6 +33,11 @@ public class BukuController {
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
         List<BukuModel> bukuList = bukuService.getListBuku();
+
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) model.addAttribute("isAuthorized", true);
+
         model.addAttribute("bukuList", bukuList);
         return "daftar-buku";
     }
