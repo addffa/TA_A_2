@@ -1,9 +1,6 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
-import apap.tugas_akhir.siperpustakaan.model.BukuModel;
-import apap.tugas_akhir.siperpustakaan.model.JenisBukuModel;
-import apap.tugas_akhir.siperpustakaan.model.PeminjamanBukuModel;
-import apap.tugas_akhir.siperpustakaan.model.UserModel;
+import apap.tugas_akhir.siperpustakaan.model.*;
 import apap.tugas_akhir.siperpustakaan.service.BukuService;
 import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
@@ -52,7 +49,7 @@ public class BukuController {
         model.addAttribute("buku", newBuku);
         return "form-tambah-buku";
     }
-  
+
     @RequestMapping(value = "/buku/tambah", method = RequestMethod.POST)
     public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
         model.addAttribute("jenisBukuList", jenisBukuService.getJenisBukuList());
@@ -69,12 +66,12 @@ public class BukuController {
             return "form-tambah-buku";
         }
     }
-  
+
     @RequestMapping(value = "/buku/{idBuku}/update-jumlah", method = RequestMethod.GET)
     private String ubahJumlahBukuForm(
             @PathVariable Integer idBuku, RedirectAttributes redir, Model model
     ) {
-        if(bukuService.getBukuById(idBuku).isPresent()) {
+        if (bukuService.getBukuById(idBuku).isPresent()) {
             BukuModel existingBuku = bukuService.getBukuById(idBuku).get();
             model.addAttribute("title", "Ubah Jumlah Buku");
             model.addAttribute("buku", existingBuku);
@@ -95,11 +92,11 @@ public class BukuController {
         model.addAttribute("title", "Ubah Jumlah Buku Berhasil");
         redir.addFlashAttribute("msg", "Ubah jumlah buku berhasil");
         redir.addFlashAttribute("type", "alert-info");
-        return "redirect:/" ;
+        return "redirect:/";
     }
 
     @RequestMapping(value = "/buku/{idBuku}/hapus", method = RequestMethod.POST)
-    public String hapusBuku(@PathVariable Integer idBuku){
+    public String hapusBuku(@PathVariable Integer idBuku) {
         bukuService.hapusBuku(idBuku);
         return "hapus-buku";
     }
@@ -107,6 +104,11 @@ public class BukuController {
     @RequestMapping(value = "/buku/{idBuku}", method = RequestMethod.GET)
     private String detailBuku(@PathVariable Integer idBuku, Model model) {
         BukuModel buku = bukuService.getBukuById(idBuku).get();
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel role = user.getRole();
+
+        if (role.getId() == 3 || role.getId() == 4) model.addAttribute("isAuthorized", true);
+
         model.addAttribute("buku", buku);
         model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
         return "detail-buku";
@@ -117,9 +119,11 @@ public class BukuController {
         BukuModel buku = bukuService.getBukuById(idBuku).get();
         int jumlahTotalBuku = buku.getJumlah();
         int jumlahBukuDipinjam = bukuService.jumlahBukuDipinjam(buku);
-        if(jumlahTotalBuku - jumlahBukuDipinjam > 0) {
+
+        if (jumlahTotalBuku - jumlahBukuDipinjam > 0) {
             UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
             bukuService.addPeminjamanBuku(buku, user);
+
             String message = "Peminjaman buku dengan judul " + buku.getJudul() + " berhasil di ajukan";
             redir.addFlashAttribute("msg", message);
             redir.addFlashAttribute("type", "alert-info");
