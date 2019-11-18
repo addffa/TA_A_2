@@ -2,16 +2,24 @@ package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.BukuModel;
 import apap.tugas_akhir.siperpustakaan.model.JenisBukuModel;
+import apap.tugas_akhir.siperpustakaan.model.PeminjamanBukuModel;
+import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import apap.tugas_akhir.siperpustakaan.service.BukuService;
 import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
+import apap.tugas_akhir.siperpustakaan.service.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -21,6 +29,9 @@ public class BukuController {
 
     @Autowired
     JenisBukuService jenisBukuService;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
@@ -99,5 +110,20 @@ public class BukuController {
         model.addAttribute("buku", buku);
         model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
         return "detail-buku";
+    }
+
+    @RequestMapping(value = "/buku/pinjam/{idBuku}", method = RequestMethod.POST)
+    private String pinjamBuku(@PathVariable Integer idBuku, Model model, RedirectAttributes redir) {
+        BukuModel buku = bukuService.getBukuById(idBuku).get();
+        int jumlahTotalBuku = buku.getJumlah();
+        int jumlahBukuDipinjam = bukuService.jumlahBukuDipinjam(buku);
+        if(jumlahTotalBuku - jumlahBukuDipinjam > 0) {
+            UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+            bukuService.addPeminjamanBuku(buku, user);
+        }
+        String message = "Peminjaman buku dengan judul " + buku.getJudul() + " berhasil di ajukan";
+        redir.addFlashAttribute("msg", message);
+        redir.addFlashAttribute("type", "alert-info");
+        return "redirect:/buku/" + idBuku;
     }
 }

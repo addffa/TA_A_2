@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PeminjamanBukuDb extends JpaRepository<PeminjamanBukuModel, Integer> {
-    int countPeminjamanBukuModelByBukuAndStatusNot(BukuModel buku, int status);
+    int countPeminjamanBukuModelByBukuAndStatusNotAndStatusNot(BukuModel buku, int status, int status1);
 }
