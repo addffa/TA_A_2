@@ -54,7 +54,7 @@ public class BukuServiceImpl implements BukuService {
 
     @Override
     public int jumlahBukuDipinjam(BukuModel buku) {
-        return peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatus(buku, 0) + peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatus(buku, 2) + peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatus(buku, 3) + peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatus(buku, 5) ;
+        return peminjamanBukuDb.jumlahBukuDipinjam(buku, 1, 4);
     }
 
     @Override
