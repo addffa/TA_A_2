@@ -2,26 +2,31 @@ package apap.tugas_akhir.siperpustakaan.restservice;
 
 import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
 import apap.tugas_akhir.siperpustakaan.rest.Setting;
-import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Random;
 
 @Service
+@Transactional
 public class UserRestServiceImpl implements UserRestService {
+    private final WebClient webClient;
+
+    public UserRestServiceImpl(WebClient.Builder webClientBuilder) {
+        this.webClient = webClientBuilder.baseUrl(Setting.siSivitasUrl).build();
+    }
+
     @Override
-    @Transactional
-    public void postUserPegawaiToSiSivitas(PegawaiDetail pegawaiDetail) {
+    public PegawaiDetail postUserPegawaiToSiSivitas(PegawaiDetail pegawaiDetail) {
         pegawaiDetail.setNip(generateNIP(pegawaiDetail.getTanggalLahir(), pegawaiDetail.getIdUser()));
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        HttpEntity<PegawaiDetail> request = new HttpEntity<>(pegawaiDetail, headers);
-        restTemplate.exchange(Setting.siSivitasUrl.concat("/employees"), HttpMethod.POST, request, PegawaiDetail.class);
+        return this.webClient
+                .post()
+                .uri("/employees")
+                .bodyValue(pegawaiDetail)
+                .retrieve()
+                .bodyToMono(PegawaiDetail.class)
+                .block();
     }
 
     private String generateNIP(String tanggalLahir, String uuid) {
