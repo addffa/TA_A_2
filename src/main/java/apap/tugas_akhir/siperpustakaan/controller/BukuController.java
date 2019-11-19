@@ -115,7 +115,7 @@ public class BukuController {
         if (role.getId() == 3 || role.getId() == 4) model.addAttribute("isAuthorized", true);
 
         model.addAttribute("buku", buku);
-        model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
+        model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku.getId()));
         return "detail-buku";
     }
 
