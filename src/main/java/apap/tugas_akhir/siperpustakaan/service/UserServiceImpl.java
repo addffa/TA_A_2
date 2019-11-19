@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
         return userDb.existsUserModelsByUsername(username);
     }
 
+    @Override
+    public UserModel getByUsername(String username) {
+        return userDb.findByUsername(username);
+    }
+
     private String encrypt(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder.encode(password);

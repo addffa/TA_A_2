@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "buku")
@@ -40,6 +41,10 @@ public class BukuModel implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private JenisBukuModel jenisBuku;
+
+    @OneToMany(mappedBy = "buku", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<PeminjamanBukuModel> listPeminjamanBuku;
 
     public JenisBukuModel getJenisBuku() {
         return jenisBuku;
@@ -87,5 +92,13 @@ public class BukuModel implements Serializable {
 
     public void setJumlah(Integer jumlah) {
         this.jumlah = jumlah;
+    }
+
+    public List<PeminjamanBukuModel> getListPeminjamanBuku() {
+        return listPeminjamanBuku;
+    }
+
+    public void setListPeminjamanBuku(List<PeminjamanBukuModel> listPeminjamanBuku) {
+        this.listPeminjamanBuku = listPeminjamanBuku;
     }
 }
