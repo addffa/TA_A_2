@@ -115,7 +115,7 @@ public class BukuController {
         if (role.getId() == 3 || role.getId() == 4) model.addAttribute("isAuthorized", true);
 
         model.addAttribute("buku", buku);
-        model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku.getId()));
+        model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
         return "detail-buku";
     }
 
@@ -123,7 +123,7 @@ public class BukuController {
     private String pinjamBuku(@PathVariable Integer idBuku, Model model, RedirectAttributes redir) {
         BukuModel buku = bukuService.getBukuById(idBuku).get();
         int jumlahTotalBuku = buku.getJumlah();
-        int jumlahBukuDipinjam = bukuService.jumlahBukuDipinjam(buku.getId());
+        int jumlahBukuDipinjam = bukuService.jumlahBukuDipinjam(buku);
 
         if (jumlahTotalBuku - jumlahBukuDipinjam > 0) {
             UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());

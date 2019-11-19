@@ -21,7 +21,7 @@ public interface BukuService {
 
     List<BukuModel> getListBuku();
 
-    int jumlahBukuDipinjam(int idBuku);
+    int jumlahBukuDipinjam(BukuModel buku);
 
     boolean cekJudulDanPengarangBuku(BukuModel buku);
 
