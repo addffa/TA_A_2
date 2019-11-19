@@ -123,7 +123,7 @@ public class BukuController {
     private String pinjamBuku(@PathVariable Integer idBuku, Model model, RedirectAttributes redir) {
         BukuModel buku = bukuService.getBukuById(idBuku).get();
         int jumlahTotalBuku = buku.getJumlah();
-        int jumlahBukuDipinjam = bukuService.jumlahBukuDipinjam(buku.getId());
+        int jumlahBukuDipinjam = bukuService.jumlahBukuDipinjam(buku);
 
         if (jumlahTotalBuku - jumlahBukuDipinjam > 0) {
             UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
