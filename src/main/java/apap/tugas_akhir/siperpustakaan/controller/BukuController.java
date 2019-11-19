@@ -97,7 +97,7 @@ public class BukuController {
         model.addAttribute("title", "Ubah Jumlah Buku Berhasil");
         redir.addFlashAttribute("msg", "Ubah jumlah buku berhasil");
         redir.addFlashAttribute("type", "alert-info");
-        return "redirect:/";
+        return "redirect:/buku/" + idBuku ;
     }
 
     @RequestMapping(value = "/buku/{idBuku}/hapus", method = RequestMethod.POST)

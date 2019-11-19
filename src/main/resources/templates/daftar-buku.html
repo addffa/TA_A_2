@@ -41,7 +41,7 @@
                                     <td>
                                         <form th:action="@{'/buku/' + ${buku.id}} + '/hapus'" method="post">
                                             <a th:href="@{'/buku/' + ${buku.id}}" class="btn btn-secondary">Lihat</a>
-                                            <a th:if="${isAuthorized}" th:href="@{'/buku/' + ${buku.id}} + '/update-jumlah'" class="btn btn-primary">Ubah Jumlah</a>
+                                            <a th:if="${isAuthorized}" class="btn btn-primary" th:href="@{'/buku/' + ${buku.id}} + '/update-jumlah'">Ubah Jumlah</a>
                                             <button type="submit" class="btn btn-danger">Hapus</button>
                                         </form>
                                     </td>
