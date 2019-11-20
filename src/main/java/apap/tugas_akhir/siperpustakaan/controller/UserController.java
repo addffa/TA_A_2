@@ -2,6 +2,8 @@ package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.RoleModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
+import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
+import apap.tugas_akhir.siperpustakaan.restservice.UserRestService;
 import apap.tugas_akhir.siperpustakaan.service.RoleService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +24,33 @@ public class UserController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private UserRestService userRestService;
+
     @RequestMapping(value = "/user/tambah", method = RequestMethod.GET)
     public String tambahUserForm(Model model) {
-        model.addAttribute("user", new UserModel());
         model.addAttribute("listRole", getListRole());
         return "tambah-user";
     }
 
     @RequestMapping(value = "/user/tambah", method = RequestMethod.POST)
-    public String tambahUser(@ModelAttribute UserModel user, RedirectAttributes redir) {
+    public String tambahUser(@ModelAttribute UserModel user,
+                             @ModelAttribute PegawaiDetail pegawaiDetail,
+                             RedirectAttributes redir) {
         if(userService.isUsernameExists(user.getUsername())) {
             redir.addFlashAttribute("msg", "username sudah ada!");
             redir.addFlashAttribute("type", "alert-danger");
         } else {
-            userService.addUser(user);
-            redir.addFlashAttribute("msg", "User berhasil disimpan!");
-            redir.addFlashAttribute("type", "alert-info");
+            try {
+                pegawaiDetail.setIdUser(userService.addUser(user).getUuid());
+                PegawaiDetail response = userRestService.postUserPegawaiToSiSivitas(pegawaiDetail);
+                redir.addFlashAttribute("msg", "User" + response.getNama() +" berhasil disimpan!");
+                redir.addFlashAttribute("type", "alert-info");
+            } catch (Exception e) {
+                e.printStackTrace();
+                redir.addFlashAttribute("msg", "Unexpected error");
+                redir.addFlashAttribute("type", "alert-danger");
+            }
         }
         return "redirect:/user/tambah";
     }

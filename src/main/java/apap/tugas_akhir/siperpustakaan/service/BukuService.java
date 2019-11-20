@@ -1,6 +1,7 @@
 package apap.tugas_akhir.siperpustakaan.service;
 
 import apap.tugas_akhir.siperpustakaan.model.BukuModel;
+import apap.tugas_akhir.siperpustakaan.model.UserModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,7 +17,9 @@ public interface BukuService {
 
     List<BukuModel> getListBuku();
 
-    int jumlahBukuDipinjam(BukuModel buku);
+    int jumlahBukuDipinjam(BukuModel Buku);
 
     boolean cekJudulDanPengarangBuku(BukuModel buku);
+
+    void addPeminjamanBuku(BukuModel buku, UserModel user);
 }

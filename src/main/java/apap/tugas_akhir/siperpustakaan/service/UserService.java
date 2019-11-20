@@ -6,4 +6,6 @@ public interface UserService {
     UserModel addUser(UserModel user);
 
     boolean isUsernameExists(String username);
+
+    UserModel getByUsername(String name);
 }

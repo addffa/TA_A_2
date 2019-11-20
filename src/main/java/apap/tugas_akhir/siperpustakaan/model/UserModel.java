@@ -16,7 +16,7 @@ public class UserModel implements Serializable {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    @Size(max = 200)
+    @Size(max = 32, min = 32)
     private String uuid;
 
     @NotNull
