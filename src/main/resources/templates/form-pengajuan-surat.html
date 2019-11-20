@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Form Pengajuan Surat Peringatan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br><h2 style="text-align: center">Pengajuan  Surat Peringatan Overdue</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Form Pengajuan Surat Peringatan</div>
+                <div class="card-body">
+                    <form th:action="@{/surat/pengajuan}" method="post" th:object=""
+                        <label>Jenis Surat</label>
+                        <input type="text" name="jenis" class="form-control" required/>
+                        <label>Keterangan</label>
+                        <input type="password" name="keterangan" class="form-control" required />
+                        <br>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
