@@ -139,4 +139,25 @@ public class BukuController {
         }
         return "redirect:/buku/" + idBuku;
     }
+
+
+    @RequestMapping(value = "/buku/ubah-status/{idBuku}", method = RequestMethod.GET)
+    private String ubahStatusPeminjamanForm(
+            @PathVariable Integer idBuku, RedirectAttributes redir, Model model
+    ) {
+        BukuModel existingBuku = bukuService.getBukuById(idBuku).get();
+        model.addAttribute("buku", existingBuku);
+        return "form-ubah-status-peminjaman";
+
+    }
+
+    @RequestMapping(value = "/buku/update-status/{idBuku}/", method = RequestMethod.POST)
+    private String ubahStatusPeminjamanSubmit(
+            @PathVariable Integer idBuku,
+            @ModelAttribute BukuModel buku, Model model
+    ) {
+        BukuModel jumlahBukuBaru = bukuService.ubahJumlahBuku(buku);
+        model.addAttribute("msg", "Ubah status peminjaman berhasil");
+        return "form-ubah-status-peminjaman";
+    }
 }
