@@ -3,10 +3,12 @@ package apap.tugas_akhir.siperpustakaan.controller;
 import apap.tugas_akhir.siperpustakaan.model.RoleModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
+import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
 import apap.tugas_akhir.siperpustakaan.restservice.UserRestService;
 import apap.tugas_akhir.siperpustakaan.service.RoleService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -57,5 +59,15 @@ public class UserController {
 
     private List<RoleModel> getListRole() {
         return roleService.getListRole();
+    }
+
+    @RequestMapping(value = "/user/profil",  method = RequestMethod.GET)
+    public String profilUser(Model model) {
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        ResultDetail result = userRestService.getUserProfile(user.getUuid());
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("role", user.getRole().getNama());
+        model.addAttribute("pegawai", result.getPegawaiDetail());
+        return "profil-user";
     }
 }

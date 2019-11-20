@@ -1,6 +1,7 @@
 package apap.tugas_akhir.siperpustakaan.restservice;
 
 import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
+import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
 import apap.tugas_akhir.siperpustakaan.rest.Setting;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,5 +49,11 @@ public class UserRestServiceImpl implements UserRestService {
     private int randomNumber() {
         Random random = new Random();
         return Math.floorMod(random.nextInt(), 10);
+    }
+
+    @Override
+    public ResultDetail getUserProfile(String uuid) {
+        return this.webClient.get().uri("/employees/"+uuid)
+                .retrieve().bodyToMono(ResultDetail.class).block();
     }
 }
