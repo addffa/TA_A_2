@@ -1,19 +1,23 @@
 package apap.tugas_akhir.siperpustakaan.service;
 
 import apap.tugas_akhir.siperpustakaan.model.BukuModel;
+import apap.tugas_akhir.siperpustakaan.model.PeminjamanBukuModel;
+import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import apap.tugas_akhir.siperpustakaan.repository.BukuDb;
 import apap.tugas_akhir.siperpustakaan.repository.PeminjamanBukuDb;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional
 public class BukuServiceImpl implements BukuService {
-
 
     @Autowired
     BukuDb bukuDb;
@@ -50,11 +54,26 @@ public class BukuServiceImpl implements BukuService {
 
     @Override
     public int jumlahBukuDipinjam(BukuModel buku) {
-        return peminjamanBukuDb.countPeminjamanBukuModelByBukuAndStatusNot(buku, 4);
+        return peminjamanBukuDb.jumlahBukuDipinjam(buku, 1, 4);
     }
 
     @Override
     public boolean cekJudulDanPengarangBuku(BukuModel buku) {
         return bukuDb.existsBukuModelsByJudulAndPengarang(buku.getJudul(), buku.getPengarang());
+    }
+
+    @Override
+    public void addPeminjamanBuku(BukuModel buku, UserModel user) {
+        PeminjamanBukuModel peminjaman = new PeminjamanBukuModel();
+        peminjaman.setBuku(buku);
+        peminjaman.setStatus(0);
+        Date now = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(now);
+        c.add(Calendar.DATE, 7);
+        peminjaman.setTangganPeminjaman(now);
+        peminjaman.setTanggalPengembalian(c.getTime());
+        peminjaman.setUser(user);
+        peminjamanBukuDb.save(peminjaman);
     }
 }
