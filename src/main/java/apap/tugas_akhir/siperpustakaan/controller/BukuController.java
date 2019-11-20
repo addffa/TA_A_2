@@ -146,6 +146,7 @@ public class BukuController {
             @PathVariable Integer idBuku, RedirectAttributes redir, Model model
     ) {
         BukuModel existingBuku = bukuService.getBukuById(idBuku).get();
+        StatusModel statusModel =
         model.addAttribute("buku", existingBuku);
         return "form-ubah-status-peminjaman";
 
