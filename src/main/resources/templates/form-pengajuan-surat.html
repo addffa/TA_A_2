@@ -11,7 +11,8 @@
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
     <br><h2 style="text-align: center">Pengajuan Surat Peringatan Overdue</h2>
-    <div class="alert alert-success" role="alert">
+    <div th:if="${msg}"
+         class="alert alert-success" role="alert">
         <h2 th:text="${msg}"></h2>
     </div>
     <div class="row">
@@ -21,7 +22,7 @@
                 <div class="card-body">
                     <form th:action="@{/surat/pengajuan}" th:object=${surat} method="POST" >
                         <label>Jenis Surat</label>
-                        <input type="text" name="jenis" class="form-control" th:field="*{jenis}" required/>
+                        <input type="text" name="jenis" class="form-control" placeholder="5" th:field="*{jenis}" th:value="5" disabled/>
                         <label>Keterangan</label>
                         <input type="text" name="keterangan" class="form-control" th:field="*{keterangan}" required />
                         <br>
