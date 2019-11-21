@@ -1,8 +1,12 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
+import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import apap.tugas_akhir.siperpustakaan.rest.SuratDetail;
 import apap.tugas_akhir.siperpustakaan.restservice.SuratRestService;
+import apap.tugas_akhir.siperpustakaan.service.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +19,9 @@ public class SuratController {
     @Autowired
     private SuratRestService suratRestService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "/surat/pengajuan", method = RequestMethod.GET)
     public String tambahSuratForm(Model model) {
         SuratDetail surat = new SuratDetail();
@@ -25,6 +32,8 @@ public class SuratController {
     @RequestMapping(value = "/surat/pengajuan", method = RequestMethod.POST)
     public String tambahSuratFormSubmit(@ModelAttribute SuratDetail suratDetail, Model model) {
         suratRestService.postSuratPeringatantoSiTU(suratDetail);
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
         model.addAttribute("msg", "Surat Pengajuan Overdue Berhasil Terkirim");
         return "form-pengajuan-surat";
     }
