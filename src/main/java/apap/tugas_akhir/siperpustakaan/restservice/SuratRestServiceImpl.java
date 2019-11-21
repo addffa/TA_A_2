@@ -1,4 +1,5 @@
 package apap.tugas_akhir.siperpustakaan.restservice;
+import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import apap.tugas_akhir.siperpustakaan.rest.SuratDetail;
 import apap.tugas_akhir.siperpustakaan.rest.Base;
 import apap.tugas_akhir.siperpustakaan.rest.Setting;
@@ -20,10 +21,12 @@ public class SuratRestServiceImpl implements SuratRestService {
     }
 
     @Override
-    public Mono<Base> postSuratPeringatantoSiTU(SuratDetail surat) {
+    public Mono<Base> postSuratPeringatantoSiTU(SuratDetail surat, UserModel userModel) {
         MultiValueMap<String, String> data = new LinkedMultiValueMap<>();
         data.add("jenis", surat.getJenis());
         data.add("keterangan", surat.getKeterangan());
+        data.add("uuid", userModel.getUuid());
+        data.add("nama", userModel.getUsername());
         return this.webClient.post().uri("/api/v1/surat-pengajuan")
                 .syncBody(data)
                 .retrieve()

@@ -31,8 +31,8 @@ public class SuratController {
 
     @RequestMapping(value = "/surat/pengajuan", method = RequestMethod.POST)
     public String tambahSuratFormSubmit(@ModelAttribute SuratDetail suratDetail, Model model) {
-        suratRestService.postSuratPeringatantoSiTU(suratDetail);
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        suratRestService.postSuratPeringatantoSiTU(suratDetail, user);
 
         model.addAttribute("msg", "Surat Pengajuan Overdue Berhasil Terkirim");
         return "form-pengajuan-surat";
