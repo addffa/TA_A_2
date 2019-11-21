@@ -3,6 +3,7 @@ package apap.tugas_akhir.siperpustakaan.controller;
 import apap.tugas_akhir.siperpustakaan.model.*;
 import apap.tugas_akhir.siperpustakaan.service.BukuService;
 import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
+import apap.tugas_akhir.siperpustakaan.service.PeminjamanService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.aspectj.bridge.IMessage;
@@ -29,6 +30,9 @@ public class BukuController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PeminjamanService peminjamanService;
 
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
@@ -112,7 +116,7 @@ public class BukuController {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         RoleModel role = user.getRole();
 
-        if (role.getId() == 5 || role.getId() == 4) model.addAttribute("isAuthorized", true);
+        if (role.getId() == 3 || role.getId() == 4) model.addAttribute("isAuthorized", true);
 
         model.addAttribute("buku", buku);
         model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
@@ -138,5 +142,19 @@ public class BukuController {
             redir.addFlashAttribute("type", "alert-danger");
         }
         return "redirect:/buku/" + idBuku;
+    }
+
+    @RequestMapping(value = "/peminjaman", method = RequestMethod.GET)
+    private String daftarPeminjaman(Model model) {
+        List<PeminjamanBukuModel> listPeminjaman = peminjamanService.getListPeminjamanBuku();
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<PeminjamanBukuModel> listPeminjamanUser = peminjamanService.getListPeminjamanBukuByUser(user);
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) {
+            model.addAttribute("listPeminjaman", listPeminjaman);
+        } else if (role.getId() == 3 || role.getId() == 4) {
+            model.addAttribute("listPeminjamanUser", listPeminjamanUser);
+        }
+        return "daftar-peminjaman";
     }
 }
