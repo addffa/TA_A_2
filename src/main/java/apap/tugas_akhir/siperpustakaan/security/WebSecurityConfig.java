@@ -24,17 +24,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
                 // tambah buku
-                .antMatchers("/buku/tambah").hasAnyRole("Pustakawan")
-                .antMatchers(HttpMethod.POST, "/buku/tambah").hasAnyRole("Pustakawan")
+                .antMatchers("/buku/tambah").hasAnyAuthority("Pustakawan")
+                .antMatchers(HttpMethod.POST, "/buku/tambah").hasAnyAuthority("Pustakawan")
                 // ubah jumlah buku
-                .antMatchers("/buku/update-jumlah").hasAnyRole("Pustakawan")
-                .antMatchers(HttpMethod.POST, "/buku/update-jumlah").hasAnyRole("Pustakawan")
+                .antMatchers("/buku/*/update-jumlah").hasAnyAuthority("Pustakawan")
+                .antMatchers(HttpMethod.POST, "/buku/*/update-jumlah").hasAnyAuthority("Pustakawan")
                 // hapus buku
-                .antMatchers("/buku/hapus").hasAnyRole("Pustakawan")
-                .antMatchers(HttpMethod.POST, "/buku/hapus").hasAnyRole("Pustakawan")
+                .antMatchers("/buku/*/hapus").hasAnyAuthority("Pustakawan")
+                .antMatchers(HttpMethod.POST, "/buku/*/hapus").hasAnyAuthority("Pustakawan")
                 // mengajukan peminjaman
+                .antMatchers("/buku/pinjam/**").hasAnyAuthority("Guru", "Siswa")
+                .antMatchers(HttpMethod.POST, "/buku/pinjam/*").hasAnyAuthority("Guru", "Siswa")
                 // menampilkan daftar pengajuan peminjaman
+                .antMatchers("/peminjaman").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
+                .antMatchers(HttpMethod.POST, "/peminjaman").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 // mengubah status pengajuan peminjaman
+                .antMatchers("/peminjaman/update-status/*").hasAnyAuthority("Pustakawan")
+                .antMatchers(HttpMethod.POST, "/peminjaman/update-status/*").hasAnyAuthority("Pustakawan")
                 // mengajukan pengadaan
                 // menampilkan daftar pengajuan pengadaan
                 // menghapus pengajuan pengadaan
