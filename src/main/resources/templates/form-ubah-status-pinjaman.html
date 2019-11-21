@@ -17,7 +17,7 @@
 </div>
 <div class="row" style="margin-left: 200px; margin-top: 30px">
     <div class="col-md-6">
-        <form th:action="@{'/buku/update-status/' + ${peminjaman_buku.id}}" th:object="${peminjaman_buku}" method="POST">
+        <form th:action="@{'/peminjaman/update-status/' + ${peminjaman_buku.id}}" th:object="${peminjaman_buku}" method="POST">
             <input type="hidden" th:field="*{id}"/>
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Tanggal Peminjaman</label>

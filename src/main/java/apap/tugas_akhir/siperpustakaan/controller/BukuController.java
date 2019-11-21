@@ -1,7 +1,13 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.*;
-import apap.tugas_akhir.siperpustakaan.service.*;
+
+import apap.tugas_akhir.siperpustakaan.service.BukuService;
+import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
+import apap.tugas_akhir.siperpustakaan.service.PeminjamanService;
+import apap.tugas_akhir.siperpustakaan.service.UserService;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -52,17 +58,19 @@ public class BukuController {
     }
 
     @RequestMapping(value = "/buku/tambah", method = RequestMethod.POST)
-    public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
+    public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model, RedirectAttributes redir) {
         model.addAttribute("jenisBukuList", jenisBukuService.getJenisBukuList());
         if (!bukuService.cekJudulDanPengarangBuku(buku)) {
             bukuService.tambahBuku(buku);
             String successMessage = "Buku dengan judul " + buku.getJudul() + " berhasil ditambahkan";
             model.addAttribute("message", successMessage);
+            model.addAttribute("type", "alert-info");
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         } else {
             String failMessage = "Buku dengan judul " + buku.getJudul() + " dan pengarang " + buku.getPengarang() + " sudah ada";
             model.addAttribute("message", failMessage);
+            model.addAttribute("type", "alert-danger");
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         }
@@ -136,11 +144,13 @@ public class BukuController {
         return "redirect:/buku/" + idBuku;
     }
 
-
-    @RequestMapping(value = "buku/update-status/{idPinjaman}", method = RequestMethod.GET)
+    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.GET)
     private String ubahStatusPeminjamanForm(
             @PathVariable Integer idPinjaman, Model model
     ) {
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) model.addAttribute("isAuthorized", true);
         PeminjamanBukuModel peminjamanBukuModel = peminjamanService.getPinjamanbyId(idPinjaman);
         BukuModel bukuModel = peminjamanBukuModel.getBuku();
         UserModel userModel = peminjamanBukuModel.getUser();
@@ -151,7 +161,7 @@ public class BukuController {
 
     }
 
-    @RequestMapping(value = "buku/update-status/{idPinjaman}", method = RequestMethod.POST)
+    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.POST)
     private String ubahStatusPeminjamanSubmit(
             @ModelAttribute PeminjamanBukuModel peminjamanBukuModel, Model model
     ) {
@@ -160,5 +170,19 @@ public class BukuController {
         model.addAttribute("msg", "Status berhasil diubah");
         model.addAttribute("type", "alert-info");
         return "form-ubah-status-pinjaman";
+    }
+
+    @RequestMapping(value = "/peminjaman", method = RequestMethod.GET)
+    private String daftarPeminjaman(Model model) {
+        List<PeminjamanBukuModel> listPeminjaman = peminjamanService.getListPeminjamanBuku();
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<PeminjamanBukuModel> listPeminjamanUser = peminjamanService.getListPeminjamanBukuByUser(user);
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) {
+            model.addAttribute("listPeminjaman", listPeminjaman);
+        } else if (role.getId() == 3 || role.getId() == 4) {
+            model.addAttribute("listPeminjamanUser", listPeminjamanUser);
+        }
+        return "daftar-peminjaman";
     }
 }
