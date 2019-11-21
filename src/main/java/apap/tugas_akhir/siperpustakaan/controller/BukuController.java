@@ -1,11 +1,7 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.*;
-import apap.tugas_akhir.siperpustakaan.service.BukuService;
-import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
-import apap.tugas_akhir.siperpustakaan.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.aspectj.bridge.IMessage;
+import apap.tugas_akhir.siperpustakaan.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +22,12 @@ public class BukuController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    StatusPinjamanService statusService;
+
+    @Autowired
+    PinjamanService pinjamanService;
 
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
@@ -141,24 +140,29 @@ public class BukuController {
     }
 
 
-    @RequestMapping(value = "/buku/ubah-status/{idBuku}", method = RequestMethod.GET)
+    @RequestMapping(value = "buku/update-status/{idPinjaman}", method = RequestMethod.GET)
     private String ubahStatusPeminjamanForm(
-            @PathVariable Integer idBuku, RedirectAttributes redir, Model model
+            @PathVariable Integer idPinjaman, Model model
     ) {
-        BukuModel existingBuku = bukuService.getBukuById(idBuku).get();
-        StatusModel statusModel =
-        model.addAttribute("buku", existingBuku);
-        return "form-ubah-status-peminjaman";
+        PeminjamanBukuModel peminjamanBukuModel = pinjamanService.getPinjamanbyId(idPinjaman);
+        List<StatusPinjamanModel> statusModelList = statusService.getStatusModelList();
+        BukuModel bukuModel = peminjamanBukuModel.getBuku();
+        UserModel userModel = peminjamanBukuModel.getUser();
+        model.addAttribute("judulBuku", bukuModel.getJudul());
+        model.addAttribute("username", userModel.getUsername());
+        model.addAttribute("peminjaman_buku", peminjamanBukuModel);
+        model.addAttribute("statusList", statusModelList);
+        return "form-ubah-status-pinjaman";
 
     }
 
-    @RequestMapping(value = "/buku/update-status/{idBuku}/", method = RequestMethod.POST)
+    @RequestMapping(value = "buku/update-status/{idPinjaman}", method = RequestMethod.POST)
     private String ubahStatusPeminjamanSubmit(
-            @PathVariable Integer idBuku,
-            @ModelAttribute BukuModel buku, Model model
+            @ModelAttribute PeminjamanBukuModel peminjamanBukuModel, Model model
     ) {
-        BukuModel jumlahBukuBaru = bukuService.ubahJumlahBuku(buku);
-        model.addAttribute("msg", "Ubah status peminjaman berhasil");
-        return "form-ubah-status-peminjaman";
+        PeminjamanBukuModel newpeminjamanBukuModel = pinjamanService.getPinjamanbyId(peminjamanBukuModel.getId());
+        pinjamanService.changeStatusPeminjaman(newpeminjamanBukuModel);
+        model.addAttribute("id", newpeminjamanBukuModel.getId());
+        return "ubah-status-pinjaman";
     }
 }

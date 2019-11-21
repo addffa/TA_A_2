@@ -1,6 +1,6 @@
 package apap.tugas_akhir.siperpustakaan.service;
 
-import apap.tugas_akhir.siperpustakaan.model.StatusModel;
+import apap.tugas_akhir.siperpustakaan.model.StatusPinjamanModel;
 import apap.tugas_akhir.siperpustakaan.repository.StatusDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +10,11 @@ import java.util.List;
 
 @Service
 @Transactional
-public class StatusServiceImpl implements StatusService {
+public class StatusPinjamanServiceImpl implements StatusPinjamanService {
     @Autowired
     StatusDb statusDb;
 
-    public List<StatusModel> getStatusModelList(){
+    public List<StatusPinjamanModel> getStatusModelList(){
         return statusDb.findAll();
     }
 }
