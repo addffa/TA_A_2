@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Home</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br><h2 style="text-align: center">Buku</h2>
+    <br><button class="btn btn-info"><a th:href="@{/buku/tambah}" style="color: white">Tambah Buku</a></button>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-dark" style="color : white">Daftar Buku</div>
+                <div class="card-body">
+                    <table th:class="table">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Pengarang</th>
+                            <th>Penerbit</th>
+                            <th>Jumlah</th>
+                            <th>Jenis Buku</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="buku, iterationStatus : ${bukuList}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${buku.judul}"></td>
+                            <td th:text="${buku.pengarang}"></td>
+                            <td th:text="${buku.penerbit}"></td>
+                            <td th:text="${buku.jumlah}"></td>
+                            <td th:text="${buku.jenisBuku.nama}"></td>
+                            <td>
+                                <form th:action="@{'/buku/' + ${buku.id}} + '/hapus'" method="post">
+                                    <a th:href="@{'/buku/' + ${buku.id}}" class="btn btn-secondary">Lihat</a>
+                                    <a th:if="${isAuthorized}" class="btn btn-primary" th:href="@{'/buku/' + ${buku.id}} + '/update-jumlah'">Ubah Jumlah</a>
+                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
