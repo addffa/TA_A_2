@@ -64,15 +64,16 @@ public class UserController {
     @RequestMapping(value = "/user/profil",  method = RequestMethod.GET)
     public String profilUser(Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        ResultDetail result = userRestService.getUserProfile(user.getUuid());
-        if (result != null) {
+        PegawaiDetail pegawai = userRestService.getUserProfile(user.getUuid());
+        if (pegawai != null) {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("role", user.getRole().getNama());
-            model.addAttribute("pegawai", result.getPegawaiDetail());
+            model.addAttribute("pegawai", pegawai);
+            return "profil-user";
         } else {
             model.addAttribute("username", user.getUsername());
             model.addAttribute("role", user.getRole().getNama());
+            return "beranda";
         }
-        return "profil-user";
     }
 }

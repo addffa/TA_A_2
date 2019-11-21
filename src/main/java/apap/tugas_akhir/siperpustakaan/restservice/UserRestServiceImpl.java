@@ -52,8 +52,15 @@ public class UserRestServiceImpl implements UserRestService {
     }
 
     @Override
-    public ResultDetail getUserProfile(String uuid) {
-        return this.webClient.get().uri("/employees/"+uuid)
+    public PegawaiDetail getUserProfile(String uuid) {
+        ResultDetail resultDetail = this.webClient.get().uri("/employees/"+uuid)
                 .retrieve().bodyToMono(ResultDetail.class).block();
+        if (resultDetail == null) {
+            return null;
+        }
+        if (resultDetail.getStatus().equals(200)) {
+            return resultDetail.getPegawaiDetail();
+        }
+        return null;
     }
 }

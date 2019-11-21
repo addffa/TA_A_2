@@ -5,5 +5,5 @@ import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
 
 public interface UserRestService {
     PegawaiDetail postUserPegawaiToSiSivitas(PegawaiDetail user);
-    ResultDetail getUserProfile(String uuid);
+    PegawaiDetail getUserProfile(String uuid);
 }
