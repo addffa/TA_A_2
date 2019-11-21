@@ -20,6 +20,5 @@ public interface PeminjamanBukuDb extends JpaRepository<PeminjamanBukuModel, Int
                            @Param("status1") int status1,
                            @Param("status2") int status2);
 
-
     List<PeminjamanBukuModel> findByUser(UserModel user);
 }

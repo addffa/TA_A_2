@@ -39,4 +39,3 @@ public class PeminjamanServiceImpl implements PeminjamanService {
         return peminjamanBukuDb.findByUser(user);
     }
 }
-
