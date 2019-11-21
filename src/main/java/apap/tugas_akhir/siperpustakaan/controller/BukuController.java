@@ -142,14 +142,14 @@ public class BukuController {
         return "redirect:/buku/" + idBuku;
     }
 
-    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.GET)
+    @RequestMapping(value = "/peminjaman/update-status/{idPinjaman}", method = RequestMethod.GET)
     private String ubahStatusPeminjamanGet(
             @PathVariable Integer idPinjaman, Model model
     ) {
         return ubahStatusPeminjamanForm(idPinjaman, model, null, null);
     }
 
-    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.POST)
+    @RequestMapping(value = "/peminjaman/update-status/{idPinjaman}", method = RequestMethod.POST)
     private String ubahStatusPeminjamanSubmit(
             @ModelAttribute PeminjamanBukuModel peminjamanBukuModel, Model model
     ) {
@@ -174,15 +174,14 @@ public class BukuController {
 
     @RequestMapping(value = "/peminjaman", method = RequestMethod.GET)
     private String daftarPeminjaman(Model model) {
-        List<PeminjamanBukuModel> listPeminjaman = peminjamanService.getListPeminjamanBuku();
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<PeminjamanBukuModel> listPeminjamanUser = peminjamanService.getListPeminjamanBukuByUser(user);
-        RoleModel role = user.getRole();
-        if (role.getId() == 5) {
-            model.addAttribute("listPeminjaman", listPeminjaman);
-        } else if (role.getId() == 3 || role.getId() == 4) {
-            model.addAttribute("listPeminjamanUser", listPeminjamanUser);
-        }
+        boolean isPustakawan = user.getRole().getNama().equals("Pustakawan");
+        model.addAttribute("isPustakawan", isPustakawan);
+        model.addAttribute("isPeminjam", user.getRole().getNama().equals("Guru") ||
+                user.getRole().getNama().equals("Siswa"));
+        model.addAttribute("listPeminjaman",
+                isPustakawan ?
+                peminjamanService.getListPeminjamanBuku() : peminjamanService.getListPeminjamanBukuByUser(user));
         return "daftar-peminjaman";
     }
 }
