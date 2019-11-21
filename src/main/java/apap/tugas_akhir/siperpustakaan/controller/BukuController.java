@@ -60,17 +60,19 @@ public class BukuController {
     }
 
     @RequestMapping(value = "/buku/tambah", method = RequestMethod.POST)
-    public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
+    public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model, RedirectAttributes redir) {
         model.addAttribute("jenisBukuList", jenisBukuService.getJenisBukuList());
         if (!bukuService.cekJudulDanPengarangBuku(buku)) {
             bukuService.tambahBuku(buku);
             String successMessage = "Buku dengan judul " + buku.getJudul() + " berhasil ditambahkan";
             model.addAttribute("message", successMessage);
+            model.addAttribute("type", "alert-info");
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         } else {
             String failMessage = "Buku dengan judul " + buku.getJudul() + " dan pengarang " + buku.getPengarang() + " sudah ada";
             model.addAttribute("message", failMessage);
+            model.addAttribute("type", "alert-danger");
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         }

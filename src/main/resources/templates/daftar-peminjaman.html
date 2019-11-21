@@ -18,18 +18,20 @@
                 <div class="card-header bg-dark" style="color : white">Daftar Pengajuan Peminjaman</div>
                 <div class="card-body">
                     <table th:class="table">
-                        <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Tanggal Peminjaman</th>
-                            <th>Tanggal Pengembalian</th>
-                            <th>Status</th>
-                            <th>Judul Buku</th>
-                            <th>Jenis Buku</th>
-                        </tr>
-                        </thead>
-                        <tbody>
                         <div th:if="${listPeminjaman}">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal Peminjaman</th>
+                                <th>Tanggal Pengembalian</th>
+                                <th>Status</th>
+                                <th>Judul Buku</th>
+                                <th>Jenis Buku</th>
+                                <th>Username Peminjam</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             <tr th:each="peminjaman, iterationStatus : ${listPeminjaman}">
                                 <td th:text="${iterationStatus.count}"></td>
                                 <td th:text="${peminjaman.tangganPeminjaman}"></td>
@@ -37,19 +39,35 @@
                                 <td th:text="${peminjaman.status}"></td>
                                 <td th:text="${peminjaman.buku.judul}"></td>
                                 <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
+                                <td th:text="${peminjaman.user.username}"></td>
+                                <td><a class="btn btn-primary">Ubah Status</a></td>
                             </tr>
+                            </tbody>
                         </div>
                         <div th:if="${listPeminjamanUser}">
-                            <tr th:each="peminjaman, iterationStatus : ${listPeminjamanUser}">
-                                <td th:text="${iterationStatus.count}"></td>
-                                <td th:text="${peminjaman.tangganPeminjaman}"></td>
-                                <td th:text="${peminjaman.tanggalPengembalian}"></td>
-                                <td th:text="${peminjaman.status}"></td>
-                                <td th:text="${peminjaman.buku.judul}"></td>
-                                <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal Peminjaman</th>
+                                <th>Tanggal Pengembalian</th>
+                                <th>Status</th>
+                                <th>Judul Buku</th>
+                                <th>Jenis Buku</th>
+                                <th></th>
                             </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="peminjaman, iterationStatus : ${listPeminjamanUser}">
+                                    <td th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${peminjaman.tangganPeminjaman}"></td>
+                                    <td th:text="${peminjaman.tanggalPengembalian}"></td>
+                                    <td th:text="${peminjaman.status}"></td>
+                                    <td th:text="${peminjaman.buku.judul}"></td>
+                                    <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
+                                    <td><a class="btn btn-primary">Ubah Status</a></td>
+                                </tr>
+                            </tbody>
                         </div>
-                        </tbody>
                     </table>
                 </div>
             </div>

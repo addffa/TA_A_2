@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface PeminjamanService {
     List<PeminjamanBukuModel> getListPeminjamanBuku();
-    
+
     List<PeminjamanBukuModel> getListPeminjamanBukuByUser(UserModel user);
 }
