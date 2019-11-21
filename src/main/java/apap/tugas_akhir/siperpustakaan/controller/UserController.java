@@ -65,9 +65,14 @@ public class UserController {
     public String profilUser(Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         ResultDetail result = userRestService.getUserProfile(user.getUuid());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("role", user.getRole().getNama());
-        model.addAttribute("pegawai", result.getPegawaiDetail());
+        if (result != null) {
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("role", user.getRole().getNama());
+            model.addAttribute("pegawai", result.getPegawaiDetail());
+        } else {
+            model.addAttribute("username", user.getUsername());
+            model.addAttribute("role", user.getRole().getNama());
+        }
         return "profil-user";
     }
 }
