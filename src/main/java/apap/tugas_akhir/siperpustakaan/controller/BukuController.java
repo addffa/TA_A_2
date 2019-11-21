@@ -1,11 +1,11 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.*;
+
 import apap.tugas_akhir.siperpustakaan.service.BukuService;
 import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
+import apap.tugas_akhir.siperpustakaan.service.PeminjamanService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -13,10 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,6 +26,9 @@ public class BukuController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    PeminjamanService peminjamanService;
 
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
@@ -56,17 +56,19 @@ public class BukuController {
     }
 
     @RequestMapping(value = "/buku/tambah", method = RequestMethod.POST)
-    public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model) {
+    public String tambahBukuSubmit(@ModelAttribute BukuModel buku, Model model, RedirectAttributes redir) {
         model.addAttribute("jenisBukuList", jenisBukuService.getJenisBukuList());
         if (!bukuService.cekJudulDanPengarangBuku(buku)) {
             bukuService.tambahBuku(buku);
             String successMessage = "Buku dengan judul " + buku.getJudul() + " berhasil ditambahkan";
             model.addAttribute("message", successMessage);
+            model.addAttribute("type", "alert-info");
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         } else {
             String failMessage = "Buku dengan judul " + buku.getJudul() + " dan pengarang " + buku.getPengarang() + " sudah ada";
             model.addAttribute("message", failMessage);
+            model.addAttribute("type", "alert-danger");
             model.addAttribute("buku", buku);
             return "form-tambah-buku";
         }
@@ -138,5 +140,49 @@ public class BukuController {
             redir.addFlashAttribute("type", "alert-danger");
         }
         return "redirect:/buku/" + idBuku;
+    }
+
+    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.GET)
+    private String ubahStatusPeminjamanGet(
+            @PathVariable Integer idPinjaman, Model model
+    ) {
+        return ubahStatusPeminjamanForm(idPinjaman, model, null, null);
+    }
+
+    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.POST)
+    private String ubahStatusPeminjamanSubmit(
+            @ModelAttribute PeminjamanBukuModel peminjamanBukuModel, Model model
+    ) {
+        peminjamanService.changeStatusPeminjaman(peminjamanBukuModel);
+        return ubahStatusPeminjamanForm(peminjamanBukuModel.getId(), model, "Status berhasil diubah", "alert-info");
+    }
+
+    private String ubahStatusPeminjamanForm(Integer idPinjaman, Model model, String msg, String type) {
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) model.addAttribute("isAuthorized", true);
+        PeminjamanBukuModel peminjamanBukuModel = peminjamanService.getPinjamanbyId(idPinjaman);
+        BukuModel bukuModel = peminjamanBukuModel.getBuku();
+        UserModel userModel = peminjamanBukuModel.getUser();
+        model.addAttribute("judulBuku", bukuModel.getJudul());
+        model.addAttribute("username", userModel.getUsername());
+        model.addAttribute("peminjaman_buku", peminjamanBukuModel);
+        model.addAttribute("msg", msg);
+        model.addAttribute("type", type);
+        return "form-ubah-status-pinjaman";
+    }
+
+    @RequestMapping(value = "/peminjaman", method = RequestMethod.GET)
+    private String daftarPeminjaman(Model model) {
+        List<PeminjamanBukuModel> listPeminjaman = peminjamanService.getListPeminjamanBuku();
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<PeminjamanBukuModel> listPeminjamanUser = peminjamanService.getListPeminjamanBukuByUser(user);
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) {
+            model.addAttribute("listPeminjaman", listPeminjaman);
+        } else if (role.getId() == 3 || role.getId() == 4) {
+            model.addAttribute("listPeminjamanUser", listPeminjamanUser);
+        }
+        return "daftar-peminjaman";
     }
 }

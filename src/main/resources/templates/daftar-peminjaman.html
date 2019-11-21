@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <title>Daftar Peminjaman</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br><h2 style="text-align: center">Pengajuan Peminjaman</h2><br>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-dark" style="color : white">Daftar Pengajuan Peminjaman</div>
+                <div class="card-body">
+                    <table th:class="table">
+                        <div th:if="${listPeminjaman}">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal Peminjaman</th>
+                                <th>Tanggal Pengembalian</th>
+                                <th>Status</th>
+                                <th>Judul Buku</th>
+                                <th>Jenis Buku</th>
+                                <th>Username Peminjam</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="peminjaman, iterationStatus : ${listPeminjaman}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td th:text="${peminjaman.tangganPeminjaman}"></td>
+                                <td th:text="${peminjaman.tanggalPengembalian}"></td>
+                                <td th:text="${peminjaman.status}"></td>
+                                <td th:text="${peminjaman.buku.judul}"></td>
+                                <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
+                                <td th:text="${peminjaman.user.username}"></td>
+                                <td><a class="btn btn-primary">Ubah Status</a></td>
+                            </tr>
+                            </tbody>
+                        </div>
+                        <div th:if="${listPeminjamanUser}">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal Peminjaman</th>
+                                <th>Tanggal Pengembalian</th>
+                                <th>Status</th>
+                                <th>Judul Buku</th>
+                                <th>Jenis Buku</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="peminjaman, iterationStatus : ${listPeminjamanUser}">
+                                    <td th:text="${iterationStatus.count}"></td>
+                                    <td th:text="${peminjaman.tangganPeminjaman}"></td>
+                                    <td th:text="${peminjaman.tanggalPengembalian}"></td>
+                                    <td th:text="${peminjaman.status}"></td>
+                                    <td th:text="${peminjaman.buku.judul}"></td>
+                                    <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
+
+                                    <td><a th:if="${isAuthorized}" th:href="@{'/peminjaman/update-status/' + ${peminjaman.id}}" class="btn btn-primary">Ubah Status</a></td>
+                                </tr>
+                            </tbody>
+                        </div>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
