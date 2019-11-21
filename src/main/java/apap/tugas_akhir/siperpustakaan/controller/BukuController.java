@@ -24,9 +24,6 @@ public class BukuController {
     UserService userService;
 
     @Autowired
-    StatusPinjamanService statusService;
-
-    @Autowired
     PeminjamanService peminjamanService;
 
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
@@ -145,13 +142,11 @@ public class BukuController {
             @PathVariable Integer idPinjaman, Model model
     ) {
         PeminjamanBukuModel peminjamanBukuModel = peminjamanService.getPinjamanbyId(idPinjaman);
-        List<StatusPinjamanModel> statusModelList = statusService.getStatusModelList();
         BukuModel bukuModel = peminjamanBukuModel.getBuku();
         UserModel userModel = peminjamanBukuModel.getUser();
         model.addAttribute("judulBuku", bukuModel.getJudul());
         model.addAttribute("username", userModel.getUsername());
         model.addAttribute("peminjaman_buku", peminjamanBukuModel);
-        model.addAttribute("statusList", statusModelList);
         return "form-ubah-status-pinjaman";
 
     }
@@ -162,7 +157,8 @@ public class BukuController {
     ) {
         PeminjamanBukuModel newpeminjamanBukuModel = peminjamanService.getPinjamanbyId(peminjamanBukuModel.getId());
         peminjamanService.changeStatusPeminjaman(newpeminjamanBukuModel);
-        model.addAttribute("id", newpeminjamanBukuModel.getId());
-        return "ubah-status-pinjaman";
+        model.addAttribute("msg", "Status berhasil diubah");
+        model.addAttribute("type", "alert-info");
+        return "form-ubah-status-pinjaman";
     }
 }
