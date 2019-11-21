@@ -153,6 +153,7 @@ public class BukuController {
         List<PeminjamanBukuModel> listPeminjamanUser = peminjamanService.getListPeminjamanBukuByUser(user);
         RoleModel role = user.getRole();
         if (role.getId() == 5) {
+            model.addAttribute("isAuthorized", true);
             model.addAttribute("listPeminjaman", listPeminjaman);
         } else if (role.getId() == 3 || role.getId() == 4) {
             model.addAttribute("listPeminjamanUser", listPeminjamanUser);

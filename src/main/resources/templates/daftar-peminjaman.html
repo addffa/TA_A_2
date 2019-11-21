@@ -64,7 +64,7 @@
                                     <td th:text="${peminjaman.status}"></td>
                                     <td th:text="${peminjaman.buku.judul}"></td>
                                     <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
-                                    <td><a class="btn btn-primary">Ubah Status</a></td>
+                                    <td><a th:if="${isAuthorized}" class="btn btn-primary">Ubah Status</a></td>
                                 </tr>
                             </tbody>
                         </div>
