@@ -65,15 +65,9 @@ public class UserController {
     public String profilUser(Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         PegawaiDetail pegawai = userRestService.getUserProfile(user.getUuid());
-        if (pegawai != null) {
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("role", user.getRole().getNama());
-            model.addAttribute("pegawai", pegawai);
-            return "profil-user";
-        } else {
-            model.addAttribute("username", user.getUsername());
-            model.addAttribute("role", user.getRole().getNama());
-            return "beranda";
-        }
+        model.addAttribute("username", user.getUsername());
+        model.addAttribute("role", user.getRole().getNama());
+        model.addAttribute("pegawai", pegawai);
+        return "profil-user";
     }
 }

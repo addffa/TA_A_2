@@ -29,32 +29,34 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-header bg-dark text-light">Detail Data User</div>
-                <div class="card-body">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>Nama</td>
-                            <td th:text="${pegawai.nama}"></td>
-                        </tr>
-                        <tr>
-                            <td>Tempat Lahir</td>
-                            <td th:text="${pegawai.tempatLahir}"></td>
-                        </tr>
-                        <tr>
-                            <td>Tanggal Lahir</td>
-                            <td th:text="${pegawai.tanggalLahir}"></td>
-                        </tr>
-                        <tr>
-                            <td>Alamat</td>
-                            <td th:text="${pegawai.alamat}"></td>
-                        </tr>
-                        <tr>
-                            <td>Telepon</td>
-                            <td th:text="${pegawai.telepon}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div th:if="${pegawai != null}">
+                    <div class="card-header bg-dark text-light">Detail Data User</div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Nama</td>
+                                <td th:text="${pegawai.nama}"></td>
+                            </tr>
+                            <tr>
+                                <td>Tempat Lahir</td>
+                                <td th:text="${pegawai.tempatLahir}"></td>
+                            </tr>
+                            <tr>
+                                <td>Tanggal Lahir</td>
+                                <td th:text="${pegawai.tanggalLahir}"></td>
+                            </tr>
+                            <tr>
+                                <td>Alamat</td>
+                                <td th:text="${pegawai.alamat}"></td>
+                            </tr>
+                            <tr>
+                                <td>Telepon</td>
+                                <td th:text="${pegawai.telepon}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

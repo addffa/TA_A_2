@@ -3,9 +3,13 @@ package apap.tugas_akhir.siperpustakaan.restservice;
 import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
 import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
 import apap.tugas_akhir.siperpustakaan.rest.Setting;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Random;
 
@@ -53,14 +57,12 @@ public class UserRestServiceImpl implements UserRestService {
 
     @Override
     public PegawaiDetail getUserProfile(String uuid) {
-        ResultDetail resultDetail = this.webClient.get().uri("/employees/"+uuid)
-                .retrieve().bodyToMono(ResultDetail.class).block();
-        if (resultDetail == null) {
+        try {
+            ResultDetail resultDetail = this.webClient.get().uri("/employees/"+uuid)
+                    .retrieve().bodyToMono(ResultDetail.class).block();
+            return resultDetail != null ? resultDetail.getPegawaiDetail() : null;
+        } catch (Exception e) {
             return null;
         }
-        if (resultDetail.getStatus().equals(200)) {
-            return resultDetail.getPegawaiDetail();
-        }
-        return null;
     }
 }
