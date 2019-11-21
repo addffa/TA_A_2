@@ -6,8 +6,6 @@ import apap.tugas_akhir.siperpustakaan.service.BukuService;
 import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
 import apap.tugas_akhir.siperpustakaan.service.PeminjamanService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
-import org.aspectj.bridge.IMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -145,9 +143,21 @@ public class BukuController {
     }
 
     @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.GET)
-    private String ubahStatusPeminjamanForm(
+    private String ubahStatusPeminjamanGet(
             @PathVariable Integer idPinjaman, Model model
     ) {
+        return ubahStatusPeminjamanForm(idPinjaman, model, null, null);
+    }
+
+    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.POST)
+    private String ubahStatusPeminjamanSubmit(
+            @ModelAttribute PeminjamanBukuModel peminjamanBukuModel, Model model
+    ) {
+        peminjamanService.changeStatusPeminjaman(peminjamanBukuModel);
+        return ubahStatusPeminjamanForm(peminjamanBukuModel.getId(), model, "Status berhasil diubah", "alert-info");
+    }
+
+    private String ubahStatusPeminjamanForm(Integer idPinjaman, Model model, String msg, String type) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         RoleModel role = user.getRole();
         if (role.getId() == 5) model.addAttribute("isAuthorized", true);
@@ -157,18 +167,8 @@ public class BukuController {
         model.addAttribute("judulBuku", bukuModel.getJudul());
         model.addAttribute("username", userModel.getUsername());
         model.addAttribute("peminjaman_buku", peminjamanBukuModel);
-        return "form-ubah-status-pinjaman";
-
-    }
-
-    @RequestMapping(value = "peminjaman/update-status/{idPinjaman}", method = RequestMethod.POST)
-    private String ubahStatusPeminjamanSubmit(
-            @ModelAttribute PeminjamanBukuModel peminjamanBukuModel, Model model
-    ) {
-        PeminjamanBukuModel newpeminjamanBukuModel = peminjamanService.getPinjamanbyId(peminjamanBukuModel.getId());
-        peminjamanService.changeStatusPeminjaman(newpeminjamanBukuModel);
-        model.addAttribute("msg", "Status berhasil diubah");
-        model.addAttribute("type", "alert-info");
+        model.addAttribute("msg", msg);
+        model.addAttribute("type", type);
         return "form-ubah-status-pinjaman";
     }
 

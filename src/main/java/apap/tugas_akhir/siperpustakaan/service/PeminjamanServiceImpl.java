@@ -24,10 +24,6 @@ public class PeminjamanServiceImpl implements PeminjamanService {
     @Override
     public PeminjamanBukuModel changeStatusPeminjaman(PeminjamanBukuModel peminjamanBukuModel){
         PeminjamanBukuModel target = peminjamanBukuDb.findById(peminjamanBukuModel.getId()).get();
-        target.setTanggalPengembalian(peminjamanBukuModel.getTanggalPengembalian());
-        target.setTangganPeminjaman(peminjamanBukuModel.getTangganPeminjaman());
-        target.setBuku(peminjamanBukuModel.getBuku());
-        target.setUser(peminjamanBukuModel.getUser());
         target.setStatus(peminjamanBukuModel.getStatus());
         peminjamanBukuDb.save(target);
         return target;
