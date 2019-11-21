@@ -112,7 +112,7 @@ public class BukuController {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         RoleModel role = user.getRole();
 
-        if (role.getId() == 3 || role.getId() == 4) model.addAttribute("isAuthorized", true);
+        if (role.getId() == 5 || role.getId() == 4) model.addAttribute("isAuthorized", true);
 
         model.addAttribute("buku", buku);
         model.addAttribute("jumlahDipinjam", bukuService.jumlahBukuDipinjam(buku));
