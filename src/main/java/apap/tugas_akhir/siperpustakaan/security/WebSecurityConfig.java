@@ -45,6 +45,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // menampilkan daftar pengajuan pengadaan
                 // menghapus pengajuan pengadaan
                 // membuat surat peringatan overdue ke si tu
+                .antMatchers("/user/tambah").hasAnyAuthority("Pustakawan")
+                .antMatchers(HttpMethod.POST, "/user/tambah").hasAnyAuthority("Pustakawan")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

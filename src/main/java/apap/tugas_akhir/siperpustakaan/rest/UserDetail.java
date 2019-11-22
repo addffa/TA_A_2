@@ -1,9 +1,13 @@
 package apap.tugas_akhir.siperpustakaan.rest;
 
-public class PegawaiDetail {
+public class UserDetail {
     private String idUser;
 
     private String nama;
+
+    private String nig;
+
+    private String nis;
 
     private String nip;
 
@@ -29,6 +33,22 @@ public class PegawaiDetail {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public String getNig() {
+        return nig;
+    }
+
+    public void setNig(String nig) {
+        this.nig = nig;
+    }
+
+    public String getNis() {
+        return nis;
+    }
+
+    public void setNis(String nis) {
+        this.nis = nis;
     }
 
     public String getNip() {

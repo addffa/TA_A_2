@@ -29,30 +29,42 @@
                         </tbody>
                     </table>
                 </div>
-                <div th:if="${pegawai != null}">
+                <div th:if="${userDetail != null}">
                     <div class="card-header bg-dark text-light">Detail Data User</div>
                     <div class="card-body">
                         <table class="table">
                             <tbody>
                             <tr>
                                 <td>Nama</td>
-                                <td th:text="${pegawai.nama}"></td>
+                                <td th:text="${userDetail.nama}"></td>
+                            </tr>
+                            <tr th:if="${userDetail.nig != null}">
+                                <td>NIG</td>
+                                <td th:text="${userDetail.nig}"></td>
+                            </tr>
+                            <tr th:if="${userDetail.nis != null}">
+                                <td>NIS</td>
+                                <td th:text="${userDetail.nis}"></td>
+                            </tr>
+                            <tr th:if="${userDetail.nip != null}">
+                                <td>NIP</td>
+                                <td th:text="${userDetail.nip}"></td>
                             </tr>
                             <tr>
                                 <td>Tempat Lahir</td>
-                                <td th:text="${pegawai.tempatLahir}"></td>
+                                <td th:text="${userDetail.tempatLahir}"></td>
                             </tr>
                             <tr>
                                 <td>Tanggal Lahir</td>
-                                <td th:text="${pegawai.tanggalLahir}"></td>
+                                <td th:text="${userDetail.tanggalLahir}"></td>
                             </tr>
                             <tr>
                                 <td>Alamat</td>
-                                <td th:text="${pegawai.alamat}"></td>
+                                <td th:text="${userDetail.alamat}"></td>
                             </tr>
                             <tr>
                                 <td>Telepon</td>
-                                <td th:text="${pegawai.telepon}"></td>
+                                <td th:text="${userDetail.telepon}"></td>
                             </tr>
                             </tbody>
                         </table>

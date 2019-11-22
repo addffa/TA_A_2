@@ -2,24 +2,21 @@ package apap.tugas_akhir.siperpustakaan.rest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSetter;
-
-import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResultDetail {
     @JsonProperty("result")
-    private PegawaiDetail pegawaiDetail;
+    private UserDetail userDetail;
 
-    @JsonSetter("status")
+    @JsonProperty("status")
     private Integer status;
 
-    public PegawaiDetail getPegawaiDetail() {
-        return pegawaiDetail;
+    public UserDetail getUserDetail() {
+        return userDetail;
     }
 
-    public void setPegawaiDetail(PegawaiDetail pegawaiDetail) {
-        this.pegawaiDetail = pegawaiDetail;
+    public void setUserDetail(UserDetail userDetail) {
+        this.userDetail = userDetail;
     }
 
     public Integer getStatus() {

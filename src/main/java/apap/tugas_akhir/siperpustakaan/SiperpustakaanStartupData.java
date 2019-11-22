@@ -49,7 +49,7 @@ public class SiperpustakaanStartupData implements ApplicationRunner {
         }
 
         UserModel admin;
-        if(!userService.isUsernameExists("admin")) {
+        if(userService.isUsernameExists("admin")) {
             admin = userService.getByUsername("admin");
         } else {
             admin = new UserModel();

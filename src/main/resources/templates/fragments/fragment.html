@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <head th:fragment="header(title)">
@@ -43,6 +43,9 @@
         </div>
         <div class="navbar-nav pull-right">
             <a class="nav-item nav-link active" th:href="@{/user/profil}">Profil</a>
+        </div>
+        <div class="navbar-nav pull-right">
+            <a class="nav-item nav-link active" th:href="@{/user/tambah}">Tambah User</a>
         </div>
         <div class="navbar-nav pull-right">
             <a class="nav-item nav-link active" th:href="@{/logout}">Logout</a>

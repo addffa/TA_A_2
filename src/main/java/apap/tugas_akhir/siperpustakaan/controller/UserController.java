@@ -2,8 +2,7 @@ package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.RoleModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
-import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
-import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
+import apap.tugas_akhir.siperpustakaan.rest.UserDetail;
 import apap.tugas_akhir.siperpustakaan.restservice.UserRestService;
 import apap.tugas_akhir.siperpustakaan.service.RoleService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
@@ -37,16 +36,16 @@ public class UserController {
 
     @RequestMapping(value = "/user/tambah", method = RequestMethod.POST)
     public String tambahUser(@ModelAttribute UserModel user,
-                             @ModelAttribute PegawaiDetail pegawaiDetail,
+                             @ModelAttribute UserDetail userDetail,
                              RedirectAttributes redir) {
         if(userService.isUsernameExists(user.getUsername())) {
             redir.addFlashAttribute("msg", "username sudah ada!");
             redir.addFlashAttribute("type", "alert-danger");
         } else {
             try {
-                pegawaiDetail.setIdUser(userService.addUser(user).getUuid());
-                PegawaiDetail response = userRestService.postUserPegawaiToSiSivitas(pegawaiDetail);
-                redir.addFlashAttribute("msg", "User" + response.getNama() +" berhasil disimpan!");
+                userDetail.setIdUser(userService.addUser(user).getUuid());
+                String response = userRestService.postUserToSiSivitas(userDetail, user.getRole().getNama());
+                redir.addFlashAttribute("msg", "User " + response +" berhasil disimpan!");
                 redir.addFlashAttribute("type", "alert-info");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -64,10 +63,10 @@ public class UserController {
     @RequestMapping(value = "/user/profil",  method = RequestMethod.GET)
     public String profilUser(Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        PegawaiDetail pegawai = userRestService.getUserProfile(user.getUuid());
+        UserDetail userDetail = userRestService.getUserProfile(user.getUuid(), user.getRole().getNama());
         model.addAttribute("username", user.getUsername());
         model.addAttribute("role", user.getRole().getNama());
-        model.addAttribute("pegawai", pegawai);
+        model.addAttribute("userDetail", userDetail);
         return "profil-user";
     }
 }

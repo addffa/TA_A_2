@@ -1,9 +1,8 @@
 package apap.tugas_akhir.siperpustakaan.restservice;
 
-import apap.tugas_akhir.siperpustakaan.rest.PegawaiDetail;
-import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
+import apap.tugas_akhir.siperpustakaan.rest.UserDetail;
 
 public interface UserRestService {
-    PegawaiDetail postUserPegawaiToSiSivitas(PegawaiDetail user);
-    PegawaiDetail getUserProfile(String uuid);
+    String postUserToSiSivitas(UserDetail user, String role);
+    UserDetail getUserProfile(String uuid, String role);
 }
