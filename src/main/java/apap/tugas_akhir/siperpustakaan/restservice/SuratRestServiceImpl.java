@@ -11,7 +11,6 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 @Service
-@Transactional
 public class SuratRestServiceImpl implements SuratRestService {
 
     private final WebClient webClient;
@@ -27,7 +26,7 @@ public class SuratRestServiceImpl implements SuratRestService {
         data.add("keterangan", surat.getKeterangan());
         data.add("uuid", userModel.getUuid());
         data.add("nama", userModel.getUsername());
-        return this.webClient.post().uri("/api/v1/surat-pengajuan")
+        return this.webClient.post().uri("/api/v1/pengajuan-surat")
                 .syncBody(data)
                 .retrieve()
                 .bodyToMono(Base.class);

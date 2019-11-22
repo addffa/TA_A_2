@@ -1,6 +1,7 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
+import apap.tugas_akhir.siperpustakaan.rest.Base;
 import apap.tugas_akhir.siperpustakaan.rest.SuratDetail;
 import apap.tugas_akhir.siperpustakaan.restservice.SuratRestService;
 import apap.tugas_akhir.siperpustakaan.service.UserService;
@@ -12,6 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 
 @Controller
 public class SuratController {
@@ -32,9 +37,14 @@ public class SuratController {
     @RequestMapping(value = "/surat/pengajuan", method = RequestMethod.POST)
     public String tambahSuratFormSubmit(@ModelAttribute SuratDetail suratDetail, Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        suratRestService.postSuratPeringatantoSiTU(suratDetail, user);
-
-        model.addAttribute("msg", "Surat Pengajuan Overdue Berhasil Terkirim");
+        Mono<Base> api = suratRestService.postSuratPeringatantoSiTU(suratDetail, user);
+        if(Objects.requireNonNull(api.block()).getStatus() == 200){
+            model.addAttribute("surat", suratDetail);
+            model.addAttribute("msg", "Surat Pengajuan Overdue Berhasil Terkirim");
+            return "form-pengajuan-surat";
+        }
+        model.addAttribute("surat", suratDetail);
+        model.addAttribute("msg", "Surat Pengajuan Overdue Gagal Terkirim");
         return "form-pengajuan-surat";
     }
 
