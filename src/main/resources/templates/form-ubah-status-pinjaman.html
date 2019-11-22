@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div style="margin-left: 215px; margin-top: 40px">
+    <h2>Ubah Status Peminjaman</h2>
+    <div th:if="${msg}"
+         id="alert"
+         class="alert d-flex alert-dismissible fade show w-25"
+         th:classappend="${type}">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span th:text="${msg}" th:remove="tag"></span>
+    </div>
+</div>
+<div class="row" style="margin-left: 200px; margin-top: 30px">
+    <div class="col-md-6">
+        <form th:action="@{'/peminjaman/update-status/' + ${peminjaman_buku.id}}" th:object="${peminjaman_buku}" method="POST">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Tanggal Peminjaman</label>
+                <div class="col-sm-6">
+                    <input disabled type="date" class="form-control" th:field="*{tangganPeminjaman}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Tanggal Pengembalian</label>
+                <div class="col-sm-6">
+                    <input disabled type="date" class="form-control" th:field="*{tanggalPengembalian}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Status</label>
+                <div class="col-sm-6">
+                    <select class="form-control" th:field="*{status}" required="true">
+                        <option th:value="0">Menunggu Persetujuan</option>
+                        <option th:value="1">Ditolak</option>
+                        <option th:value="2">Diterima</option>
+                        <option th:value="3">Sudah diambil</option>
+                        <option th:value="4">Sudah dikembalikan</option>
+                        <option th:value="5">Overdue</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Judul Buku</label>
+                <div class="col-sm-6">
+                    <input disabled type="text" class="form-control" th:field="*{buku.judul}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-6 col-form-label">Peminjam</label>
+                <div class="col-sm-6">
+                    <input disabled type="text" class="form-control" th:field="*{user.username}">
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

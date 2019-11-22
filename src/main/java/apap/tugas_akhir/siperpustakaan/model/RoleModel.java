@@ -22,10 +22,18 @@ public class RoleModel implements Serializable {
     @Column(name = "nama", nullable = false)
     private String nama;
 
+    public RoleModel() {}
+
+    public RoleModel(@NotNull @Size(max = 200) String nama) {
+        this.nama = nama;
+    }
+
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private List<UserModel> userRole;
+
+
 
     public Integer getId() {
         return id;

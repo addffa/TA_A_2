@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RoleService {
     List<RoleModel> getListRole();
+    RoleModel getRoleByNama(String nama);
+    void addRole(RoleModel roleModel);
 }
