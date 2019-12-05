@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-
 <head>
-    <title> Hapus Buku </title>
-
+    <title>404 Not Found</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
-
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<br>
-<div class="container-fluid">
-    <div class="alert alert-success" role="alert">
-        <h2 th:text="'Buku berhasil dihapus'"></h2>
-    </div>
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+    <img class="image" th:src="@{/img/404.png}" style="width: 50%"/>
+    <h2 style="font-weight: bolder; color: #17a2b8">Page Not Found</h2>
 </div>
 <footer th:replace="fragments/fragment :: footer"></footer>
 </body>
