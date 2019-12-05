@@ -7,25 +7,30 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     <style>
         .feature-box {
-            border: 2px solid #17a2b8;
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 30%;
-            margin: 1rem;
+            width: 25%;
+            margin: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .content-container {
+            padding: 0 5rem;
         }
 
         .image {
-            width: 70%;
+            width: 60%;
         }
     </style>
 </head>
 
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <div class="container-fluid">
+    <div class="container-fluid content-container">
         <br>
         <div class="d-flex flex-row justify-content-center" style="margin: 2rem 0;">
             <h3 style="text-align: center;font-weight:bolder; margin: 0 1rem;" th:text="'Hi, ' + ${#httpServletRequest.remoteUser} + '!'"></h3>
@@ -42,28 +47,41 @@
             <div class="feature-box">
                 <img class="image" th:src="@{/img/buku.png}"/>
                 <p style="font-weight: bolder">Buku</p>
-                <p>Melihat daftar dan detail buku</p>
-                <p>Meminjam buku</p>
+                <ul>
+                    <li>Melihat daftar dan detail buku</li>
+                    <li th:if="${isPustakawan}">Menambahkan buku</li>
+                    <li th:if="${isPustakawan}">Mengubah jumlah buku</li>
+                    <li th:if="${isPustakawan}">Menghapus buku</li>
+                    <li th:if="${isSiswaOrGuru}">Meminjam buku</li>
+                </ul>
             </div>
             <div class="feature-box">
                 <img class="image" th:src="@{/img/peminjaman.png}"/>
                 <p style="font-weight: bolder">Peminjaman</p>
-                <p>Melihat daftar peminjaman buku</p>
-                <p>Meminjam buku</p>
+                <ul>
+                    <li>Melihat daftar peminjaman</li>
+                    <li th:if="${isSiswaOrGuru}">Meminjam buku</li>
+                    <li th:if="${isPustakawan}">Mengubah status peminjaman</li>
+                </ul>
             </div>
             <div class="feature-box">
                 <img class="image" th:src="@{/img/pengadaan.png}"/>
                 <p style="font-weight: bolder">Pengadaan</p>
-                <p>Melihat daftar pengajuan pengadaan</p>
+                <ul>
+                    <li>Mengajukan pengadaan buku</li>
+                    <li>Melihat daftar pengajuan pengadaan buku</li>
+                    <li>Menghapus pengajuan pengadaan buku</li>
+                </ul>
             </div>
-            <div class="feature-box">
+            <div class="feature-box" th:if="${isPustakawan}">
                 <img class="image" th:src="@{/img/pengajuanSurat.png}"/>
                 <p style="font-weight: bolder">Pengajuan Surat</p>
-                <p>Membuat surat pemberitahuan/peringatan untuk siswa yang memiliki pinjaman buku yang statusnya sudah overdue.</p>
+                <ul>
+                    <li>Membuat surat pemberitahuan atau peringatan untuk siswa yang memiliki pinjaman buku yang statusnya sudah overdue</li>
+                </ul>
             </div>
         </div>
 
     </div>
-
 </body>
 </html>
