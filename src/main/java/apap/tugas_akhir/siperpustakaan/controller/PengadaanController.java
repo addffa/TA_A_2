@@ -3,7 +3,7 @@ package apap.tugas_akhir.siperpustakaan.controller;
 import apap.tugas_akhir.siperpustakaan.model.PengadaanBukuModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import apap.tugas_akhir.siperpustakaan.rest.PengadaanDetail;
-import apap.tugas_akhir.siperpustakaan.restservice.PengadaanRestService;
+import apap.tugas_akhir.siperpustakaan.restservice.KoperasiRestService;
 import apap.tugas_akhir.siperpustakaan.service.PengadaanService;
 
 import apap.tugas_akhir.siperpustakaan.service.UserService;
@@ -25,7 +25,7 @@ public class PengadaanController {
     UserService userService;
 
     @Autowired
-    PengadaanRestService pengadaanRestService;
+    KoperasiRestService pengadaanRestService;
 
     @RequestMapping(value = "/pengadaan/tambah", method = RequestMethod.GET)
     public String tambahPengadaanForm(Model model) {

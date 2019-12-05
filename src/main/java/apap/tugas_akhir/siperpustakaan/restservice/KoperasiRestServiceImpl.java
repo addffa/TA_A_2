@@ -9,20 +9,19 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @Transactional
-public class PengadaanRestServiceImpl implements PengadaanRestService{
+public class KoperasiRestServiceImpl implements KoperasiRestService {
 
     private final WebClient webClient;
 
-    public PengadaanRestServiceImpl(WebClient.Builder webClientBuilder) {
+    public KoperasiRestServiceImpl(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl(Setting.siKoperasiUrl).build();
     }
 
     @Override
     public PengadaanDetail getAnggotaKoperasi(String uuid, String role){
         String uri;
-        if(role.equals("Guru")) uri = "/teachers/";
-        else if(role.equals("Siswa")) uri = "/students/";
-        else uri = "/employees/";
+        //if(role.equals("Guru"))
+        uri = "/teachers/";
         try {
             ResultDetail resultDetail = this.webClient.get().uri(uri.concat(uuid))
                     .retrieve().bodyToMono(ResultDetail.class).block();
@@ -31,4 +30,5 @@ public class PengadaanRestServiceImpl implements PengadaanRestService{
             return null;
         }
     }
+
 }
