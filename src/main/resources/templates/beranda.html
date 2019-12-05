@@ -5,9 +5,21 @@
     <title>Beranda</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
-
     <style>
+        .feature-box {
+            border: 2px solid #17a2b8;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+            margin: 1rem;
+        }
 
+        .image {
+            width: 70%;
+        }
     </style>
 </head>
 
@@ -25,6 +37,30 @@
              th:classappend="${type}">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <span th:text="${msg}" th:remove="tag"></span>
+        </div>
+        <div class="d-flex flex-row">
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/buku.png}"/>
+                <p style="font-weight: bolder">Buku</p>
+                <p>Melihat daftar dan detail buku</p>
+                <p>Meminjam buku</p>
+            </div>
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/peminjaman.png}"/>
+                <p style="font-weight: bolder">Peminjaman</p>
+                <p>Melihat daftar peminjaman buku</p>
+                <p>Meminjam buku</p>
+            </div>
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/pengadaan.png}"/>
+                <p style="font-weight: bolder">Pengadaan</p>
+                <p>Melihat daftar pengajuan pengadaan</p>
+            </div>
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/pengajuanSurat.png}"/>
+                <p style="font-weight: bolder">Pengajuan Surat</p>
+                <p>Membuat surat pemberitahuan/peringatan untuk siswa yang memiliki pinjaman buku yang statusnya sudah overdue.</p>
+            </div>
         </div>
 
     </div>
