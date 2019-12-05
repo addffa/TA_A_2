@@ -15,9 +15,9 @@
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container-fluid">
         <br>
-        <div class="d-flex flex-row justify-content-center">
+        <div class="d-flex flex-row justify-content-center" style="margin: 2rem 0;">
             <h3 style="text-align: center;font-weight:bolder; margin: 0 1rem;" th:text="'Hi, ' + ${#httpServletRequest.remoteUser} + '!'"></h3>
-            <h3 style="text-align: center;">Selamat datang di Sistem Informasi Perpustakaan</h3>
+            <h3 style="text-align: center;">Selamat Datang di Sistem Informasi Perpustakaan</h3>
         </div>
         <div th:if="${msg}"
              id="alert"
@@ -26,7 +26,7 @@
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <span th:text="${msg}" th:remove="tag"></span>
         </div>
-        
+
     </div>
 
 </body>
