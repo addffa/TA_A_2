@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Daftar Pengadaan</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
+
 <body>
-$END$
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="container-fluid">
+    <br><h2 style="text-align: center">Pengajuan Pengadaan</h2>
+    <br><a class="btn btn-info" th:href="@{/}" style="color: white">Tambah Pengadaan</a>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-dark" style="color : white">Daftar Pengajuan Pengadaan</div>
+                <div class="card-body">
+                    <table th:class="table">
+                        <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Judul</th>
+                            <th>Pengarang</th>
+                            <th>Penerbit</th>
+                            <th>Jumlah</th>
+                            <th>Harga</th>
+                            <th>Status</th>
+                            <th th:if="${isPustakawan}">Username Peminjam</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pengadaan, iterationStatus : ${listPengadaan}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td th:text="${pengadaan.judul}"></td>
+                            <td th:text="${pengadaan.pengarang}"></td>
+                            <td th:text="${pengadaan.penerbit}"></td>
+                            <td th:text="${pengadaan.harga}"></td>
+                            <td th:if="${peminjaman.status} == 0">Usulan pengguna</td>
+                            <td th:if="${peminjaman.status} == 1">Menunggu persetujuan</td>
+                            <td th:if="${peminjaman.status} == 2">Ditolak</td>
+                            <td th:if="${peminjaman.status} == 3">Disetujui</td>
+                            <td th:if="${isPustakawan}" th:text="${pengadaan.user.username}"></td>
+                            <td><a class="btn btn-primary text-light">Delete Pengadaan</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
