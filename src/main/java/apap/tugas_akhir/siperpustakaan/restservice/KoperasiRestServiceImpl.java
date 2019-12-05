@@ -1,6 +1,6 @@
 package apap.tugas_akhir.siperpustakaan.restservice;
 
-import apap.tugas_akhir.siperpustakaan.rest.PengadaanDetail;
+import apap.tugas_akhir.siperpustakaan.rest.AnggotaKoperasiDetail;
 import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
 import apap.tugas_akhir.siperpustakaan.rest.Setting;
 import org.springframework.stereotype.Service;
@@ -18,14 +18,14 @@ public class KoperasiRestServiceImpl implements KoperasiRestService {
     }
 
     @Override
-    public PengadaanDetail getAnggotaKoperasi(String uuid, String role){
+    public AnggotaKoperasiDetail getAnggotaKoperasi(String uuid, String role){
         String uri;
         //if(role.equals("Guru"))
         uri = "/teachers/";
         try {
             ResultDetail resultDetail = this.webClient.get().uri(uri.concat(uuid))
                     .retrieve().bodyToMono(ResultDetail.class).block();
-            return resultDetail != null ? resultDetail.getPengadaanDetail() : null;
+            return resultDetail != null ? resultDetail.getAnggotaKoperasiDetail() : null;
         } catch (Exception e) {
             return null;
         }

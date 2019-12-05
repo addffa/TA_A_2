@@ -1,7 +1,7 @@
 package apap.tugas_akhir.siperpustakaan.restservice;
 
-import apap.tugas_akhir.siperpustakaan.rest.PengadaanDetail;
+import apap.tugas_akhir.siperpustakaan.rest.AnggotaKoperasiDetail;
 
 public interface KoperasiRestService {
-    PengadaanDetail getAnggotaKoperasi(String uuid, String role);
+    AnggotaKoperasiDetail getAnggotaKoperasi(String uuid, String role);
 }

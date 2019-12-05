@@ -2,7 +2,7 @@ package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.PengadaanBukuModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
-import apap.tugas_akhir.siperpustakaan.rest.PengadaanDetail;
+import apap.tugas_akhir.siperpustakaan.rest.AnggotaKoperasiDetail;
 import apap.tugas_akhir.siperpustakaan.restservice.KoperasiRestService;
 import apap.tugas_akhir.siperpustakaan.service.PengadaanService;
 
@@ -37,8 +37,8 @@ public class PengadaanController {
     @RequestMapping(value = "/pengadaan/tambah", method = RequestMethod.POST)
     public String tambahPengadaanSubmit(@ModelAttribute PengadaanBukuModel pengadaanBukuModel, Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        PengadaanDetail pengadaanDetail = pengadaanRestService.getAnggotaKoperasi(user.getUuid(), user.getRole().getNama());
-        pengadaanService.tambahPengadaan(pengadaanBukuModel, user, pengadaanDetail);
+        AnggotaKoperasiDetail anggotaKoperasiDetail = pengadaanRestService.getAnggotaKoperasi(user.getUuid(), user.getRole().getNama());
+        pengadaanService.tambahPengadaan(pengadaanBukuModel, user, anggotaKoperasiDetail);
         String successMessage = "Pengadaan buku dengan judul " + pengadaanBukuModel.getJudul() + " berhasil diajukan";
         model.addAttribute("message", successMessage);
         model.addAttribute("type", "alert-info");

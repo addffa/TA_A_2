@@ -1,6 +1,6 @@
 package apap.tugas_akhir.siperpustakaan.rest;
 
-public class PengadaanDetail {
+public class AnggotaKoperasiDetail {
 
     private String nama;
 

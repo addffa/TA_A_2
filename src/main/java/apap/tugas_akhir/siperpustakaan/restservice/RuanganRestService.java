@@ -1,10 +1,9 @@
 package apap.tugas_akhir.siperpustakaan.restservice;
 
-import apap.tugas_akhir.siperpustakaan.model.PengadaanBukuModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
-import apap.tugas_akhir.siperpustakaan.rest.Base;
-import reactor.core.publisher.Mono;
+import apap.tugas_akhir.siperpustakaan.rest.PengadaanDetail;
+import apap.tugas_akhir.siperpustakaan.rest.ResultDetail;
 
 public interface RuanganRestService {
-    Mono<Base> postPengadaansiRuangan(PengadaanBukuModel pengadaanBukuModel, UserModel userModel);
+    ResultDetail postPengadaansiRuangan(PengadaanDetail pengadaanDetail, UserModel userModel);
 }
