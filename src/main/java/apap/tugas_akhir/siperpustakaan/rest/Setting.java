@@ -7,5 +7,5 @@ public class Setting {
 
     final public static String siSivitasUrl = "http://sivitas.herokuapp.com/api";
 
-    final public static String siRuangansUrl = "";
+    final public static String siRuanganUrl = "";
 }
