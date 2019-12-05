@@ -2,54 +2,54 @@ package apap.tugas_akhir.siperpustakaan.rest;
 
 public class PengadaanDetail {
 
-    private String nama;
+    private String judul;
 
-    private String nia;
+    private String pengarang;
 
-    private int total_simpanan;
+    private String penerbit;
 
-    private int id_anggota;
+    private int jumlah;
 
-    private boolean is_pengurus;
+    private int harga;
 
-    public String getNama() {
-        return nama;
+
+    public String getJudul() {
+        return judul;
     }
 
-    public void setNama(String nama) {
-        this.nama = nama;
+    public void setJudul(String judul) {
+        this.judul = judul;
     }
 
-
-    public String getNia() {
-        return nia;
+    public String getPengarang() {
+        return pengarang;
     }
 
-    public void setNia(String nia) {
-        this.nia = nia;
+    public void setPengarang(String pengarang) {
+        this.pengarang = pengarang;
     }
 
-    public int getTotal_simpanan() {
-        return total_simpanan;
+    public String getPenerbit() {
+        return penerbit;
     }
 
-    public void setTotal_simpanan(int total_simpanan) {
-        this.total_simpanan = total_simpanan;
+    public void setPenerbit(String penerbit) {
+        this.penerbit = penerbit;
     }
 
-    public int getId_anggota() {
-        return id_anggota;
+    public int getJumlah() {
+        return jumlah;
     }
 
-    public void setId_anggota(int id_anggota) {
-        this.id_anggota = id_anggota;
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
     }
 
-    public boolean isIs_pengurus() {
-        return is_pengurus;
+    public int getHarga() {
+        return harga;
     }
 
-    public void setIs_pengurus(boolean is_pengurus) {
-        this.is_pengurus = is_pengurus;
+    public void setHarga(int harga) {
+        this.harga = harga;
     }
 }
