@@ -8,11 +8,18 @@ public class ResultDetail {
     @JsonProperty("result")
     private UserDetail userDetail;
 
+    @JsonProperty("result")
+    private PengadaanDetail pengadaanDetail;
+
     @JsonProperty("status")
     private Integer status;
 
     public UserDetail getUserDetail() {
         return userDetail;
+    }
+
+    public PengadaanDetail getPengadaanDetail() {
+        return pengadaanDetail;
     }
 
     public void setUserDetail(UserDetail userDetail) {

@@ -20,6 +20,7 @@ public class PengadaanDetail {
         this.nama = nama;
     }
 
+
     public String getNia() {
         return nia;
     }

@@ -1,8 +1,14 @@
 package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.PengadaanBukuModel;
+import apap.tugas_akhir.siperpustakaan.model.UserModel;
+import apap.tugas_akhir.siperpustakaan.rest.PengadaanDetail;
+import apap.tugas_akhir.siperpustakaan.restservice.PengadaanRestService;
 import apap.tugas_akhir.siperpustakaan.service.PengadaanService;
+
+import apap.tugas_akhir.siperpustakaan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +21,12 @@ public class PengadaanController {
     @Autowired
     PengadaanService pengadaanService;
 
+    @Autowired
+    UserService userService;
+
+    @Autowired
+    PengadaanRestService pengadaanRestService;
+
     @RequestMapping(value = "/pengadaan/tambah", method = RequestMethod.GET)
     public String tambahPengadaanForm(Model model) {
         PengadaanBukuModel newPengadaan = new PengadaanBukuModel();
@@ -24,11 +36,15 @@ public class PengadaanController {
 
     @RequestMapping(value = "/pengadaan/tambah", method = RequestMethod.POST)
     public String tambahPengadaanSubmit(@ModelAttribute PengadaanBukuModel pengadaanBukuModel, Model model) {
-        pengadaanService.tambahPengadaan(pengadaanBukuModel);
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        PengadaanDetail pengadaanDetail = pengadaanRestService.getAnggotaKoperasi(user.getUuid(), user.getRole().getNama());
+        pengadaanService.tambahPengadaan(pengadaanBukuModel, user, pengadaanDetail);
         String successMessage = "Pengadaan buku dengan judul " + pengadaanBukuModel.getJudul() + " berhasil diajukan";
         model.addAttribute("message", successMessage);
         model.addAttribute("type", "alert-info");
         model.addAttribute("pengadaan", pengadaanBukuModel);
-       return "form-pengajuan-pengadaan";
+        return "form-pengajuan-pengadaan";
     }
 }
+
+
