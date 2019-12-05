@@ -47,7 +47,7 @@
                             <td th:if="${isPustakawan}" th:text="${peminjaman.user.username}"></td>
                             <td><a th:if="${isPustakawan}"
                                    th:href="@{'/peminjaman/update-status/' + ${peminjaman.id}}"
-                                   class="btn btn-primary text-light">Ubah Status</a></td>
+                                   class="btn btn-info text-light">Ubah Status</a></td>
                         </tr>
                         </tbody>
                     </table>
