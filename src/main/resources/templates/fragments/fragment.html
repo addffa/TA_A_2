@@ -19,6 +19,18 @@
                 justify-content: center;
                 align-items: center;
             }
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding-top: 0.5rem;
+                background-color: #17a2b8;
+                color: white;
+            }
+            body {
+                position: relative;
+                min-height: 100vh;
+            }
         </style>
     </head>
     <head th:fragment="js">
@@ -33,7 +45,7 @@
 </head>
 <body>
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" style="color:#17a2b8;font-weight:bolder;" href="#" th:text="SiPerpus"></a>
+    <a th:href="@{/}" class="navbar-brand" style="color:#17a2b8;font-weight:bolder;" href="#" th:text="SiPerpus"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -69,5 +81,10 @@
         </div>
     </div>
 </nav>
+<footer th:fragment="footer" class="page-footer font-small d-flex align-items-end justify-content-center">
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+        <p>Sistem Informasi Perpustakaan A 2</p>
+    </div>
+</footer>
 </body>
 </html>
