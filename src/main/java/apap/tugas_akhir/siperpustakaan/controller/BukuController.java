@@ -103,9 +103,17 @@ public class BukuController {
     }
 
     @RequestMapping(value = "/buku/{idBuku}/hapus", method = RequestMethod.POST)
-    public String hapusBuku(@PathVariable Integer idBuku) {
+    public String hapusBuku(@PathVariable Integer idBuku, Model model) {
         bukuService.hapusBuku(idBuku);
-        return "hapus-buku";
+
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) model.addAttribute("isAuthorized", true);
+
+        model.addAttribute("title", "Hapus Buku Berhasil");
+        model.addAttribute("message", "Hapus buku berhasil");
+        model.addAttribute("type", "alert-info");
+        return "daftar-buku" ;
     }
 
     @RequestMapping(value = "/buku/{idBuku}", method = RequestMethod.GET)

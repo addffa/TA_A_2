@@ -5,12 +5,35 @@
     <title>Beranda</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    <style>
+        .feature-box {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 25%;
+            margin: 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+        }
+        .content-container {
+            padding: 0 5rem;
+        }
+        .image {
+            width: 60%;
+        }
+    </style>
 </head>
 
 <body>
     <nav th:replace="fragments/fragment :: navbar"></nav>
-    <div class="container-fluid">
-        <br><h2 style="text-align: center">Sistem Informasi Perpustakaan</h2>
+    <div class="container-fluid content-container">
+        <br>
+        <div class="d-flex flex-row justify-content-center" style="margin: 2rem 0;">
+            <h3 style="text-align: center;font-weight:bolder; margin: 0 1rem;" th:text="'Hi, ' + ${#httpServletRequest.remoteUser} + '!'"></h3>
+            <h3 style="text-align: center;">Selamat Datang di Sistem Informasi Perpustakaan</h3>
+        </div>
         <div th:if="${msg}"
              id="alert"
              class="alert d-flex alert-dismissible fade show w-25"
@@ -18,6 +41,45 @@
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <span th:text="${msg}" th:remove="tag"></span>
         </div>
+        <div class="d-flex flex-row justify-content-center">
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/buku.png}"/>
+                <p style="font-weight: bolder">Buku</p>
+                <ul>
+                    <li>Melihat daftar dan detail buku</li>
+                    <li th:if="${isPustakawan}">Menambahkan buku</li>
+                    <li th:if="${isPustakawan}">Mengubah jumlah buku</li>
+                    <li th:if="${isPustakawan}">Menghapus buku</li>
+                    <li th:if="${isSiswaOrGuru}">Meminjam buku</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/peminjaman.png}"/>
+                <p style="font-weight: bolder">Peminjaman</p>
+                <ul>
+                    <li>Melihat daftar peminjaman</li>
+                    <li th:if="${isSiswaOrGuru}">Meminjam buku</li>
+                    <li th:if="${isPustakawan}">Mengubah status peminjaman</li>
+                </ul>
+            </div>
+            <div class="feature-box">
+                <img class="image" th:src="@{/img/pengadaan.png}"/>
+                <p style="font-weight: bolder">Pengadaan</p>
+                <ul>
+                    <li>Mengajukan pengadaan buku</li>
+                    <li>Melihat daftar pengajuan pengadaan buku</li>
+                    <li>Menghapus pengajuan pengadaan buku</li>
+                </ul>
+            </div>
+            <div class="feature-box" th:if="${isPustakawan}">
+                <img class="image" th:src="@{/img/pengajuanSurat.png}"/>
+                <p style="font-weight: bolder">Pengajuan Surat</p>
+                <ul>
+                    <li>Membuat surat pemberitahuan atau peringatan untuk siswa yang memiliki pinjaman buku yang statusnya sudah overdue</li>
+                </ul>
+            </div>
+        </div>
     </div>
+    <footer th:replace="fragments/fragment :: footer"></footer>
 </body>
 </html>

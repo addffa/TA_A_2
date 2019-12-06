@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <title>403 Forbidden</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar"></nav>
+<div class="d-flex flex-column justify-content-center align-items-center" style="height: 100vh;">
+    <img class="image" th:src="@{/img/403.png}" style="width: 40%"/>
+    <h2 style="font-weight: bolder; color: #17a2b8">You don't have permission to access this pages</h2>
+</div>
+<footer th:replace="fragments/fragment :: footer"></footer>
+</body>
+</html>

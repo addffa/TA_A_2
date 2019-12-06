@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Tambah Buku</title>
+    <title>Tambah Pengadaan Buku</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 
 <body>
 <nav th:replace="fragments/fragment :: navbar"></nav>
-<h2 style="margin-left: 215px; margin-top: 40px">Tambah Buku</h2>
+<h2 style="margin-left: 215px; margin-top: 40px">Tambah Pengadaan Buku</h2>
 <div th:if="${message}"
      id="alert"
      class="alert d-flex alert-dismissible fade show w-50"
@@ -19,7 +19,7 @@
 </div>
 <div class="row" style="margin-left: 200px; margin-top: 40px">
     <div class="col-md-6">
-        <form th:action="@{/buku/tambah}" th:object="${buku}" method="POST">
+        <form th:action="@{/pengadaan/tambah}" th:object="${pengadaan}" method="POST">
             <input type="hidden" th:field="*{id}">
             <div class="form-group row">
                 <label class="col-sm-6 col-form-label">Judul</label>
@@ -46,18 +46,14 @@
                 </div>
             </div>
             <div class="form-group row" >
-                <label class="col-sm-6 col-form-label">Jenis Buku</label>
+                <label class="col-sm-6 col-form-label">Harga</label>
                 <div class="col-sm-6">
-                    <select class="form-control" th:field="*{jenisBuku.id}" required="true">
-                        <option value="" selected>--Pilih Jenis Buku--</option>
-                        <option th:each="jenisBuku : ${jenisBukuList}" th:value="${jenisBuku.id}" th:text="${jenisBuku.nama}"></option>
-                    </select>
+                    <input type="number" class="form-control" th:field="*{harga}" required="true">
                 </div>
             </div>
             <br><button class="btn btn-info" type="submit">Submit</button>
         </form>
     </div>
 </div>
-<footer th:replace="fragments/fragment :: footer"></footer>
 </body>
 </html>
