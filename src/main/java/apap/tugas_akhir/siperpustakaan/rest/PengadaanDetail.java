@@ -12,7 +12,6 @@ public class PengadaanDetail {
 
     private int harga;
 
-
     public String getJudul() {
         return judul;
     }
@@ -53,3 +52,4 @@ public class PengadaanDetail {
         this.harga = harga;
     }
 }
+
