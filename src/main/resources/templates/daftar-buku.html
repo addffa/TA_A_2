@@ -11,7 +11,17 @@
     <nav th:replace="fragments/fragment :: navbar"></nav>
     <div class="container-fluid">
         <br><h2 style="text-align: center">Buku</h2>
-        <br><a th:if="${isAuthorized}" class="btn btn-info" th:href="@{/buku/tambah}" style="color: white">Tambah Buku</a>
+        <div th:if="${message}"
+             id="alert"
+             class="alert d-flex alert-dismissible fade show w-50"
+             th:classappend="${type}" style="margin-top:30px">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span th:text="${message}" th:remove="tag"></span>
+        </div>
+        <br>
+        <div>
+            <a th:if="${isAuthorized}" class="btn btn-info" th:href="@{/buku/tambah}" style="color: white">Tambah Buku</a>
+        </div>
         <hr>
         <div class="row">
             <div class="col-md-12">
