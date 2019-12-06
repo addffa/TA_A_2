@@ -6,12 +6,11 @@ import apap.tugas_akhir.siperpustakaan.model.UserModel;
 import java.util.List;
 
 public interface PeminjamanService {
-   PeminjamanBukuModel getPinjamanbyId(Integer idPinjaman);
+    PeminjamanBukuModel getPinjamanbyId(Integer idPinjaman);
 
-   PeminjamanBukuModel changeStatusPeminjaman(PeminjamanBukuModel peminjamanBukuModel);
+    PeminjamanBukuModel changeStatusPeminjaman(PeminjamanBukuModel peminjamanBukuModel);
 
     List<PeminjamanBukuModel> getListPeminjamanBuku();
 
     List<PeminjamanBukuModel> getListPeminjamanBukuByUser(UserModel user);
-
 }

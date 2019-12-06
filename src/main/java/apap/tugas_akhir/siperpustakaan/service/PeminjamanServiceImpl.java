@@ -16,7 +16,6 @@ public class PeminjamanServiceImpl implements PeminjamanService {
     PeminjamanBukuDb peminjamanBukuDb;
 
     @Override
-
     public PeminjamanBukuModel getPinjamanbyId(Integer idPinjaman){
         return peminjamanBukuDb.findById(idPinjaman).get();
     }
