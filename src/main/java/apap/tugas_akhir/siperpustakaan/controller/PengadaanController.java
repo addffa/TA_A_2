@@ -52,7 +52,6 @@ public class PengadaanController {
 
         Mono<Base> api = ruanganRestService.postPengadaansiRuangan(pengadaanDetail, user);
         if(Objects.requireNonNull(api.block()).getStatus() == 200){
-            pengadaanService.tambahPengadaan(pengadaanBukuModel, user, anggotaKoperasiDetail);
             String successMessage = "Pengadaan buku dengan judul " + pengadaanBukuModel.getJudul() + " berhasil diajukan";
             model.addAttribute("message", successMessage);
             model.addAttribute("type", "alert-info");
