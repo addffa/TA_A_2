@@ -45,7 +45,7 @@
                             <td th:text="${peminjaman.buku.judul}"></td>
                             <td th:text="${peminjaman.buku.jenisBuku.nama}"></td>
                             <td th:if="${isPustakawan}" th:text="${peminjaman.user.username}"></td>
-                            <td><a th:if="${isPustakawan}"
+                            <td><a th:if="${isPustakawan && peminjaman.status != 1 && peminjaman.status != 4}"
                                    th:href="@{'/peminjaman/update-status/' + ${peminjaman.id}}"
                                    class="btn btn-info text-light">Ubah Status</a></td>
                         </tr>

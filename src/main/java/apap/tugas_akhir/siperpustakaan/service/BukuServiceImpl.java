@@ -37,7 +37,8 @@ public class BukuServiceImpl implements BukuService {
     @Override
     public BukuModel ubahJumlahBuku(BukuModel bukuModel) {
         BukuModel targetBuku = bukuDb.findById(bukuModel.getId()).get();
-        targetBuku.setJumlah(bukuModel.getJumlah());
+        int jumlahDipinjam = jumlahBukuDipinjam(targetBuku);
+        targetBuku.setJumlah(Math.max(bukuModel.getJumlah(), jumlahDipinjam));
         bukuDb.save(targetBuku);
         return targetBuku;
     }
