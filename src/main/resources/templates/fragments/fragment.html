@@ -59,7 +59,7 @@
             <div class="navbar-nav pull-left">
                 <a class="nav-item nav-link active" th:href="@{/buku}">Buku</a>
             </div>
-            <div sec:authorize="hasRole('Pustakawan, Guru, Siswa')" class="navbar-nav pull-right">
+            <div sec:authorize="hasAnyAuthority('Pustakawan, Guru, Siswa')" class="navbar-nav pull-right">
                 <a class="nav-item nav-link active" th:href="@{/peminjaman}">Peminjaman</a>
             </div>
             <div sec:authorize="hasAnyAuthority('Pustakawan, Guru, Siswa')" class="navbar-nav pull-right">
