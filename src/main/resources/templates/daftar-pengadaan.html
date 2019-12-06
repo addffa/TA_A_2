@@ -11,7 +11,7 @@
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
     <br><h2 style="text-align: center">Pengajuan Pengadaan</h2>
-    <br><a class="btn btn-info" th:href="@{/}" style="color: white">Tambah Pengadaan</a>
+    <br><a class="btn btn-info" th:href="@{/pengadaan/tambah}" style="color: white">Tambah Pengadaan</a>
     <hr>
     <div class="row">
         <div class="col-md-12">
@@ -38,13 +38,14 @@
                             <td th:text="${pengadaan.judul}"></td>
                             <td th:text="${pengadaan.pengarang}"></td>
                             <td th:text="${pengadaan.penerbit}"></td>
+                            <td th:text="${pengadaan.jumlah}"></td>
                             <td th:text="${pengadaan.harga}"></td>
-                            <td th:if="${peminjaman.status} == 0">Usulan pengguna</td>
-                            <td th:if="${peminjaman.status} == 1">Menunggu persetujuan</td>
-                            <td th:if="${peminjaman.status} == 2">Ditolak</td>
-                            <td th:if="${peminjaman.status} == 3">Disetujui</td>
+                            <td th:if="${pengadaan.status} == 0">Usulan pengguna</td>
+                            <td th:if="${pengadaan.status} == 1">Menunggu persetujuan</td>
+                            <td th:if="${pengadaan.status} == 2">Ditolak</td>
+                            <td th:if="${pengadaan.status} == 3">Disetujui</td>
                             <td th:if="${isPustakawan}" th:text="${pengadaan.user.username}"></td>
-                            <td><a class="btn btn-primary text-light">Delete Pengadaan</a></td>
+                            <td><a class="btn btn-danger text-light">Hapus</a></td>
                         </tr>
                         </tbody>
                     </table>
