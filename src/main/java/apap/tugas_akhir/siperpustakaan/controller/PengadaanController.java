@@ -12,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -59,6 +60,30 @@ public class PengadaanController {
         model.addAttribute("listPengadaan",
                 isPustakawan ? pengadaanService.getListPengadaanBuku() : pengadaanService.getListPengadaanBukuByUser(user));
         return "daftar-pengadaan";
+    }
+
+    @RequestMapping(value = "/pengadaan/{idPengadaan}/hapus", method = RequestMethod.POST)
+    public String hapusPengadaan(@PathVariable Integer idPengadaan, Model model) {
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+
+        String message;
+        boolean isDeleted = pengadaanService.hapusPengadaan(idPengadaan, user.getRole().getNama());
+        if(isDeleted) {
+            message = "Pengadaan buku berhasil dihapus";
+        } else {
+            message = "Pengadaan buku gagal dihapus";
+        }
+        model.addAttribute("message", message);
+        model.addAttribute("type", "alert-info");
+
+        boolean isPustakawan = user.getRole().getNama().equals("Pustakawan");
+        model.addAttribute("isPustakawan", isPustakawan);
+        model.addAttribute("isPeminjam", user.getRole().getNama().equals("Guru") ||
+                user.getRole().getNama().equals("Siswa"));
+        model.addAttribute("listPengadaan",
+                isPustakawan ? pengadaanService.getListPengadaanBuku() : pengadaanService.getListPengadaanBukuByUser(user));
+        return "daftar-pengadaan";
+
     }
 }
 

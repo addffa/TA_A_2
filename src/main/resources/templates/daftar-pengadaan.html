@@ -11,6 +11,13 @@
 <nav th:replace="fragments/fragment :: navbar"></nav>
 <div class="container-fluid">
     <br><h2 style="text-align: center">Pengajuan Pengadaan</h2>
+    <div th:if="${message}"
+         id="alert"
+         class="alert d-flex alert-dismissible fade show w-50"
+         th:classappend="${type}" style="margin-top:30px">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <span th:text="${message}" th:remove="tag"></span>
+    </div>
     <br><a class="btn btn-info" th:href="@{/pengadaan/tambah}" style="color: white">Tambah Pengadaan</a>
     <hr>
     <div class="row">
@@ -45,7 +52,16 @@
                             <td th:if="${pengadaan.status} == 2">Ditolak</td>
                             <td th:if="${pengadaan.status} == 3">Disetujui</td>
                             <td th:if="${isPustakawan}" th:text="${pengadaan.user.username}"></td>
-                            <td><a class="btn btn-danger text-light">Hapus</a></td>
+                            <td>
+                                <form th:action="@{'/pengadaan/' + ${pengadaan.id}} + '/hapus'" method="post">
+                                    <button th:if="${(isPustakawan && pengadaan.status < 2) ||
+                                                    (isPeminjam && pengadaan.status < 1)}"
+                                            type="submit"
+                                            class="btn btn-danger">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

@@ -42,4 +42,21 @@ public class PengadaanServiceImpl implements PengadaanService{
     public List<PengadaanBukuModel> getListPengadaanBukuByUser(UserModel user) {
         return pengadaanBukuDb.findByUser(user);
     }
+
+    @Override
+    public PengadaanBukuModel getPengadaanById(int idPengadaan) {
+        return pengadaanBukuDb.findById(idPengadaan).get();
+    }
+
+    @Override
+    public boolean hapusPengadaan(int idPengadaan, String role) {
+        PengadaanBukuModel pengadaan = getPengadaanById(idPengadaan);
+        if((role.equals("Pustakawan") && pengadaan.getStatus() < 2)
+                || ((role.equals("Guru") || role.equals("Siswa")) && pengadaan.getStatus() < 1) ) {
+            pengadaanBukuDb.delete(getPengadaanById(idPengadaan));
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

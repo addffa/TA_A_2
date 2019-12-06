@@ -21,6 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/js/**").permitAll()
+                // api
                 .antMatchers("/api/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
                 // tambah buku
@@ -37,18 +38,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/buku/pinjam/*").hasAnyAuthority("Guru", "Siswa")
                 // menampilkan daftar pengajuan peminjaman
                 .antMatchers("/peminjaman").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
-                .antMatchers(HttpMethod.POST, "/peminjaman").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 // mengubah status pengajuan peminjaman
                 .antMatchers("/peminjaman/update-status/*").hasAnyAuthority("Pustakawan")
                 .antMatchers(HttpMethod.POST, "/peminjaman/update-status/*").hasAnyAuthority("Pustakawan")
                 // mengajukan pengadaan
-                .antMatchers("/pengadaan").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
-                .antMatchers(HttpMethod.POST, "/pengadaan").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
+                .antMatchers("/pengadaan/tambah").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
+                .antMatchers(HttpMethod.POST, "/pengadaan/tambah").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 // menampilkan daftar pengajuan pengadaan
+                .antMatchers("/pengadaan").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 // menghapus pengajuan pengadaan
+                .antMatchers("/pengadaan/*/hapus").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
+                .antMatchers(HttpMethod.POST, "/pengadaan/*/hapus").hasAnyAuthority("Pustakawan", "Guru", "Siswa")
                 // membuat surat peringatan overdue ke si tu
+                .antMatchers("/surat/pengajuan").hasAnyAuthority("Pustakawan")
+                .antMatchers(HttpMethod.POST, "/surat/pengajuan").hasAnyAuthority("Pustakawan")
+                // tambah user
                 .antMatchers("/user/tambah").hasAnyAuthority("Pustakawan")
                 .antMatchers(HttpMethod.POST, "/user/tambah").hasAnyAuthority("Pustakawan")
+                // login logout
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

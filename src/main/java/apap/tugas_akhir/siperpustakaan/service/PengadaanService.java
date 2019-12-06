@@ -10,4 +10,6 @@ public interface PengadaanService {
     List<PengadaanBukuModel> getListPengadaanBuku();
     List<PengadaanBukuModel> getListPengadaanBukuByUser(UserModel user);
     void tambahPengadaan(PengadaanBukuModel pengadaanModel, UserModel userModel, AnggotaKoperasiDetail anggotaKoperasiDetail);
+    PengadaanBukuModel getPengadaanById(int idPengadaan);
+    boolean hapusPengadaan(int idPengadaan, String role);
 }
