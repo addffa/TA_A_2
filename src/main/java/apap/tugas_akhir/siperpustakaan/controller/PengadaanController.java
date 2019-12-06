@@ -25,7 +25,7 @@ public class PengadaanController {
     UserService userService;
 
     @Autowired
-    KoperasiRestService pengadaanRestService;
+    KoperasiRestService koperasiRestService;
 
     @RequestMapping(value = "/pengadaan/tambah", method = RequestMethod.GET)
     public String tambahPengadaanForm(Model model) {
@@ -37,7 +37,8 @@ public class PengadaanController {
     @RequestMapping(value = "/pengadaan/tambah", method = RequestMethod.POST)
     public String tambahPengadaanSubmit(@ModelAttribute PengadaanBukuModel pengadaanBukuModel, Model model) {
         UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        AnggotaKoperasiDetail anggotaKoperasiDetail = pengadaanRestService.getAnggotaKoperasi(user.getUuid(), user.getRole().getNama());
+        AnggotaKoperasiDetail anggotaKoperasiDetail = koperasiRestService.getAnggotaKoperasi(user.getUuid(), user.getRole().getNama());
+
         pengadaanService.tambahPengadaan(pengadaanBukuModel, user, anggotaKoperasiDetail);
         String successMessage = "Pengadaan buku dengan judul " + pengadaanBukuModel.getJudul() + " berhasil diajukan";
         model.addAttribute("message", successMessage);

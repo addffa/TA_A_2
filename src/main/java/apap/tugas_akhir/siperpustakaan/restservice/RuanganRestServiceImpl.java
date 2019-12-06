@@ -19,7 +19,7 @@ public class RuanganRestServiceImpl implements RuanganRestService{
     public ResultDetail postPengadaansiRuangan(PengadaanDetail pengadaanDetail, UserModel userModel) {
         return this.webClient
                 .post()
-                .uri("")
+                .uri("/api/v1/pengajuan-pengadaan")
                 .bodyValue(pengadaanDetail)
                 .retrieve()
                 .bodyToMono(ResultDetail.class)
