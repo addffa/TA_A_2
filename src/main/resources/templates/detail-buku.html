@@ -26,7 +26,7 @@
                     <div class="d-flex flex-row justify-content-between align-items-center" style="height: 64px;">
                         <a th:href="@{/buku}">Kembali ke Daftar Buku</a>
                         <form th:action="@{/buku/pinjam/} + ${buku.id}" method="POST">
-                            <button th:if="${isAuthorized}" class="btn btn-primary">Pinjam</button>
+                            <button th:if="${isAuthorized}" class="btn btn-info">Pinjam</button>
                         </form>
                     </div>
                     <table class="table">
@@ -68,5 +68,6 @@
         </div>
     </div>
 </div>
+<footer th:replace="fragments/fragment :: footer"></footer>
 </body>
 </html>

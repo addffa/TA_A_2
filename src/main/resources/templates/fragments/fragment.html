@@ -8,6 +8,31 @@
 
     <head th:fragment="css">
         <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <style>
+            .navbar-nav {
+                margin: 0 0.5rem;
+            }
+            .logout {
+                background-color: #17a2b8;
+                border-radius: 8px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding-top: 0.5rem;
+                background-color: #17a2b8;
+                color: white;
+                height: 2.5rem;
+            }
+            body {
+                position: relative;
+                min-height: 100vh;
+            }
+        </style>
     </head>
     <head th:fragment="js">
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -19,43 +44,47 @@
         <script th:src="@{/js/bootstrap.min.js}"></script>
     </head>
 </head>
-
 <body>
-
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#" th:text="SiPerpus"></a>
+    <a th:href="@{/}" class="navbar-brand" style="color:#17a2b8;font-weight:bolder;" href="#" th:text="SiPerpus"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-            <a class="nav-item nav-link active" th:href="@{/}">Beranda<span class="sr-only">(current)</span></a>
+    <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNavAltMarkup">
+        <div class="d-flex flex-row">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link active" th:href="@{/}">Beranda<span class="sr-only">(current)</span></a>
+            </div>
+            <div class="navbar-nav pull-left">
+                <a class="nav-item nav-link active" th:href="@{/buku}">Buku</a>
+            </div>
+            <div class="navbar-nav pull-right">
+                <a class="nav-item nav-link active" th:href="@{/peminjaman}">Peminjaman</a>
+            </div>
+            <div class="navbar-nav pull-right">
+                <a class="nav-item nav-link active" th:href="@{/pengadaan}">Pengadaan</a>
+            </div>
+            <div class="navbar-nav pull-right">
+                <a class="nav-item nav-link active" th:href="@{/surat/pengajuan}">Pengajuan Surat</a>
+            </div>
         </div>
-        <div class="navbar-nav pull-left">
-            <a class="nav-item nav-link active" th:href="@{/buku}">Buku</a>
-        </div>
-        <div class="navbar-nav pull-right">
-            <a class="nav-item nav-link active" th:href="@{/peminjaman}">Peminjaman</a>
-        </div>
-        <div class="navbar-nav pull-right">
-            <a class="nav-item nav-link active" th:href="@{/}">Pengadaan</a>
-        </div>
-        <div class="navbar-nav pull-right">
-            <a class="nav-item nav-link active" th:href="@{/surat/pengajuan}">Pengajuan Surat</a>
-        </div>
-        <div class="navbar-nav pull-right">
-            <a class="nav-item nav-link active" th:href="@{/user/profil}">Profil</a>
-        </div>
-        <div class="navbar-nav pull-right">
-            <a class="nav-item nav-link active" th:href="@{/user/tambah}">Tambah User</a>
-        </div>
-        <div class="navbar-nav pull-right">
-            <a class="nav-item nav-link active" th:href="@{/logout}">Logout</a>
+        <div class="d-flex flex-row">
+            <div class="navbar-nav pull-right">
+                <a class="nav-item nav-link active" th:href="@{/user/tambah}">Tambah User</a>
+            </div>
+            <div class="navbar-nav pull-right">
+                <a class="nav-item nav-link active" th:href="@{/user/profil}">Profil</a>
+            </div>
+            <div class="navbar-nav pull-right">
+                <a class="nav-item nav-link active logout" style="color: white; padding: 0.25rem 1rem;" th:href="@{/logout}">Logout</a>
+            </div>
         </div>
     </div>
 </nav>
-
+<footer th:fragment="footer" class="page-footer font-small d-flex align-items-end justify-content-center">
+    <div class="footer-copyright text-center" style="font-size: 12px; padding-top: 0.5rem; padding-bottom: 0.7rem">© 2019 Copyright: Sistem Informasi Perpustakaan A 2
+    </div>
+</footer>
 </body>
-
 </html>

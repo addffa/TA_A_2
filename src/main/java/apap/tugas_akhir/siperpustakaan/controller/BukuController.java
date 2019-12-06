@@ -2,10 +2,7 @@ package apap.tugas_akhir.siperpustakaan.controller;
 
 import apap.tugas_akhir.siperpustakaan.model.*;
 
-import apap.tugas_akhir.siperpustakaan.service.BukuService;
-import apap.tugas_akhir.siperpustakaan.service.JenisBukuService;
-import apap.tugas_akhir.siperpustakaan.service.PeminjamanService;
-import apap.tugas_akhir.siperpustakaan.service.UserService;
+import apap.tugas_akhir.siperpustakaan.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +26,9 @@ public class BukuController {
 
     @Autowired
     PeminjamanService peminjamanService;
+
+    @Autowired
+    PengadaanService pengadaanService;
 
     @RequestMapping(value = "/buku", method = RequestMethod.GET)
     private String daftarBuku(Model model) {
@@ -103,9 +103,17 @@ public class BukuController {
     }
 
     @RequestMapping(value = "/buku/{idBuku}/hapus", method = RequestMethod.POST)
-    public String hapusBuku(@PathVariable Integer idBuku) {
+    public String hapusBuku(@PathVariable Integer idBuku, Model model) {
         bukuService.hapusBuku(idBuku);
-        return "hapus-buku";
+
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        RoleModel role = user.getRole();
+        if (role.getId() == 5) model.addAttribute("isAuthorized", true);
+
+        model.addAttribute("title", "Hapus Buku Berhasil");
+        model.addAttribute("message", "Hapus buku berhasil");
+        model.addAttribute("type", "alert-info");
+        return "daftar-buku" ;
     }
 
     @RequestMapping(value = "/buku/{idBuku}", method = RequestMethod.GET)
