@@ -48,6 +48,18 @@ public class PengadaanController {
         return "form-pengajuan-pengadaan";
 
     }
+
+    @RequestMapping(value = "/pengadaan", method = RequestMethod.GET)
+    private String daftarPengadaan(Model model) {
+        UserModel user = userService.getByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        boolean isPustakawan = user.getRole().getNama().equals("Pustakawan");
+        model.addAttribute("isPustakawan", isPustakawan);
+        model.addAttribute("isPeminjam", user.getRole().getNama().equals("Guru") ||
+                user.getRole().getNama().equals("Siswa"));
+        model.addAttribute("listPengadaan",
+                isPustakawan ? pengadaanService.getListPengadaanBuku() : pengadaanService.getListPengadaanBukuByUser(user));
+        return "daftar-pengadaan";
+    }
 }
 
 

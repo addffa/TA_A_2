@@ -2,19 +2,21 @@ package apap.tugas_akhir.siperpustakaan.service;
 
 import apap.tugas_akhir.siperpustakaan.model.PengadaanBukuModel;
 import apap.tugas_akhir.siperpustakaan.model.UserModel;
-import apap.tugas_akhir.siperpustakaan.repository.PengadaanDb;
+import apap.tugas_akhir.siperpustakaan.repository.PengadaanBukuDb;
 
 import apap.tugas_akhir.siperpustakaan.rest.AnggotaKoperasiDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class PengadaanServiceImpl implements PengadaanService{
 
     @Autowired
-    PengadaanDb pengadaanDb;
+    PengadaanBukuDb pengadaanBukuDb;
 
     @Override
     public void tambahPengadaan(PengadaanBukuModel pengadaanModel, UserModel userModel, AnggotaKoperasiDetail anggotaKoperasiDetail){
@@ -28,6 +30,16 @@ public class PengadaanServiceImpl implements PengadaanService{
             pengadaanModel.setStatus(0);
         }
         pengadaanModel.setUser(userModel);
-        pengadaanDb.save(pengadaanModel);
+        pengadaanBukuDb.save(pengadaanModel);
+    }
+
+    @Override
+    public List<PengadaanBukuModel> getListPengadaanBuku() {
+        return pengadaanBukuDb.findAll();
+    }
+
+    @Override
+    public List<PengadaanBukuModel> getListPengadaanBukuByUser(UserModel user) {
+        return pengadaanBukuDb.findByUser(user);
     }
 }
