@@ -23,10 +23,10 @@ public class PengadaanServiceImpl implements PengadaanService{
         if(userModel.getRole().getNama().equals("Pustakawan")){
             pengadaanModel.setStatus(1);
         }
-        else if(userModel.getRole().getNama().equals("Guru") && (anggotaKoperasiDetail.isIs_pengurus() == true && anggotaKoperasiDetail.getTotal_simpanan() > 1000000)){
+        else if(userModel.getRole().getNama().equals("Guru") && (anggotaKoperasiDetail != null && anggotaKoperasiDetail.isIs_pengurus() == true && anggotaKoperasiDetail.getTotal_simpanan() > 1000000)){
             pengadaanModel.setStatus(3);
         }
-        else if(userModel.getRole().getNama().equals("Guru") || userModel.getRole().equals("Siswa") ){
+        else if(userModel.getRole().getNama().equals("Guru") || userModel.getRole().getNama().equals("Siswa") ){
             pengadaanModel.setStatus(0);
         }
         pengadaanModel.setUser(userModel);

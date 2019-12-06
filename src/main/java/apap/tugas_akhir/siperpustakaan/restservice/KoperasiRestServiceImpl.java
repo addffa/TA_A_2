@@ -19,9 +19,7 @@ public class KoperasiRestServiceImpl implements KoperasiRestService {
 
     @Override
     public AnggotaKoperasiDetail getAnggotaKoperasi(String uuid, String role){
-        String uri;
-        //if(role.equals("Guru"))
-        uri = "/teachers/";
+        String uri = "/viewAnggota/";
         try {
             ResultAnggotaKoperasiDetail resultDetail = this.webClient.get().uri(uri.concat(uuid))
                     .retrieve().bodyToMono(ResultAnggotaKoperasiDetail.class).block();
